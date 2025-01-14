@@ -15,6 +15,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	ProjectSection(SolutionItems) = preProject
 		Consigna.txt = Consigna.txt
 		Objetivos.txt = Objetivos.txt
+		ScriptDB.txt = ScriptDB.txt
 	EndProjectSection
 EndProject
 Global
@@ -42,5 +43,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {96F23A70-1C03-4A9B-987E-959F416CE0FA}
 	EndGlobalSection
 EndGlobal
