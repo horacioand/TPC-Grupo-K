@@ -4,7 +4,7 @@
 
 <html>
 <head runat="server">
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title></title>
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>
@@ -13,8 +13,27 @@
 </head>
 <body>
     <form id="form1" runat="server">
+
+        <!--  Navbar  -->
+        <nav class="navbar navbar-expand-lg bg-success">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#">Restó</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                    <div class="navbar-nav">
+                        <a class="nav-link active" aria-current="page" href="Default.aspx">Inicio</a>
+                        <a class="nav-link active" href="Carta.aspx">Carta</a>
+                        <a class="nav-link active" href="Login.aspx">Ingresar</a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <!--  Contenido  -->
         <div>
-            <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+            <asp:ContentPlaceHolder ID="MasterSite" runat="server">
             </asp:ContentPlaceHolder>
         </div>
     </form>
