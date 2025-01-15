@@ -12,7 +12,7 @@ namespace Dominio
         public  int Capacidad { get; set; }
         public Usuario Mesero { get; set; }
         public bool Estado { get; set; }    
-        public List<Platillo> Consumo { get; set; }
+        //public Pedido Consumo { get; set; }
 
     }
 }
