@@ -74,24 +74,27 @@ GO
 USE [RESTAURANTE_DB]
 GO
 
-/****** Object:  Table [dbo].[Meseros]    Script Date: 14/01/2025 09:56:24 a. m. ******/
+USE [RESTAURANTE_DB]
+GO
+
+/****** Object:  Table [dbo].[Usuarios]    Script Date: 16/01/2025 09:32:58 a. m. ******/
 SET ANSI_NULLS ON
 GO
 
 SET QUOTED_IDENTIFIER ON
 GO
 
-CREATE TABLE [dbo].[Meseros](
+CREATE TABLE [dbo].[Usuarios](
 	[Id] [smallint] NOT NULL,
 	[Nombre] [varchar](100) NOT NULL,
- CONSTRAINT [PK_Meseros] PRIMARY KEY CLUSTERED 
+	[Usuario] [varchar](50) NOT NULL,
+	[Contraseña] [varchar](50) NOT NULL,
+	[Gerente] [bit] NOT NULL,
+ CONSTRAINT [PK_Usuarios] PRIMARY KEY CLUSTERED 
 (
 	[Id] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
-GO
-
-USE [RESTAURANTE_DB]
 GO
 
 /****** Object:  Table [dbo].[Ventas]    Script Date: 14/01/2025 09:56:35 a. m. ******/
@@ -115,9 +118,9 @@ CREATE TABLE [dbo].[Ventas](
 ) ON [PRIMARY]
 GO
 
-ALTER TABLE [dbo].[Ventas]  WITH CHECK ADD  CONSTRAINT [FK_Ventas_Meseros] FOREIGN KEY([IdMesero])
-REFERENCES [dbo].[Meseros] ([Id])
+ALTER TABLE [dbo].[Ventas]  WITH CHECK ADD  CONSTRAINT [FK_Ventas_Usuarios] FOREIGN KEY([IdMesero])
+REFERENCES [dbo].[Usuarios] ([Id])
 GO
 
-ALTER TABLE [dbo].[Ventas] CHECK CONSTRAINT [FK_Ventas_Meseros]
+ALTER TABLE [dbo].[Ventas] CHECK CONSTRAINT [FK_Ventas_Usuarios]
 GO
