@@ -1,3 +1,5 @@
+----Creacion Db----
+
 use master 
 go
 create database RESTAURANTE_DB
@@ -5,8 +7,38 @@ go
 use RESTAURANTE_DB
 go
 
+----Creacion tablas----
+
+USE [RESTAURANTE_DB]
+GO
+
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[Platillos](
+	[Id] [smallint] IDENTITY(1,1) NOT NULL,
+	[Nombre] [varchar](50) NOT NULL,
+	[Precio] [money] NOT NULL,
+ CONSTRAINT [PK_Platillos] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+USE [RESTAURANTE_DB]
+GO
+
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
 CREATE TABLE [dbo].[Categorias](
-	[Id] [smallint] NOT NULL,
+	[Id] [smallint] IDENTITY(1,1) NOT NULL,
 	[Descripcion] [varchar](50) NOT NULL,
  CONSTRAINT [PK_Categorias] PRIMARY KEY CLUSTERED 
 (
@@ -18,28 +50,6 @@ GO
 USE [RESTAURANTE_DB]
 GO
 
-/****** Object:  Table [dbo].[Platillos]    Script Date: 14/01/2025 09:55:57 a. m. ******/
-SET ANSI_NULLS ON
-GO
-
-SET QUOTED_IDENTIFIER ON
-GO
-
-CREATE TABLE [dbo].[Platillos](
-	[Id] [smallint] NOT NULL,
-	[Nombre] [varchar](50) NOT NULL,
-	[Precio] [money] NOT NULL,
- CONSTRAINT [PK_Platillos] PRIMARY KEY CLUSTERED 
-(
-	[Id] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
-) ON [PRIMARY]
-GO
-
-USE [RESTAURANTE_DB]
-GO
-
-/****** Object:  Table [dbo].[PlatillosCategorias]    Script Date: 14/01/2025 09:56:12 a. m. ******/
 SET ANSI_NULLS ON
 GO
 
@@ -47,7 +57,7 @@ SET QUOTED_IDENTIFIER ON
 GO
 
 CREATE TABLE [dbo].[PlatillosCategorias](
-	[Id] [smallint] NOT NULL,
+	[Id] [smallint] IDENTITY(1,1) NOT NULL,
 	[IdPlatillo] [smallint] NOT NULL,
 	[IdCategoria] [smallint] NOT NULL,
  CONSTRAINT [PK_PlatillosCategorias] PRIMARY KEY CLUSTERED 
@@ -74,10 +84,6 @@ GO
 USE [RESTAURANTE_DB]
 GO
 
-USE [RESTAURANTE_DB]
-GO
-
-/****** Object:  Table [dbo].[Usuarios]    Script Date: 16/01/2025 09:32:58 a. m. ******/
 SET ANSI_NULLS ON
 GO
 
@@ -85,7 +91,7 @@ SET QUOTED_IDENTIFIER ON
 GO
 
 CREATE TABLE [dbo].[Usuarios](
-	[Id] [smallint] NOT NULL,
+	[Id] [smallint] IDENTITY(1,1) NOT NULL,
 	[Nombre] [varchar](100) NOT NULL,
 	[Usuario] [varchar](50) NOT NULL,
 	[Contraseña] [varchar](50) NOT NULL,
@@ -97,7 +103,9 @@ CREATE TABLE [dbo].[Usuarios](
 ) ON [PRIMARY]
 GO
 
-/****** Object:  Table [dbo].[Ventas]    Script Date: 14/01/2025 09:56:35 a. m. ******/
+USE [RESTAURANTE_DB]
+GO
+
 SET ANSI_NULLS ON
 GO
 
@@ -105,7 +113,7 @@ SET QUOTED_IDENTIFIER ON
 GO
 
 CREATE TABLE [dbo].[Ventas](
-	[Id] [smallint] NOT NULL,
+	[Id] [smallint] IDENTITY(1,1) NOT NULL,
 	[IdMesero] [smallint] NOT NULL,
 	[Fecha] [smalldatetime] NOT NULL,
 	[TotalCuenta] [money] NOT NULL,
@@ -124,3 +132,71 @@ GO
 
 ALTER TABLE [dbo].[Ventas] CHECK CONSTRAINT [FK_Ventas_Usuarios]
 GO
+
+----Inserts----
+
+insert into Usuarios (Nombre, Usuario, Contraseña, Gerente) values ('Maxi', 'maxi123', '123maxi', 1)
+
+insert into Usuarios (Nombre, Usuario, Contraseña, Gerente) values ('Diego', 'diego123', '123diego', 0)
+
+insert into Categorias (Descripcion) values ('Bebidas') 
+
+insert into Categorias (Descripcion) values ('Platillos') 
+
+insert into Platillos (Nombre, Precio) values ('Soda', 20.00)
+
+insert into Platillos (Nombre, Precio) values ('Limonada', 25.00)
+
+insert into Platillos (Nombre, Precio) values ('Botella agua', 15.00)
+
+insert into Platillos (Nombre, Precio) values ('Cafe', 20.00)
+
+insert into Platillos (Nombre, Precio) values ('Cerveza', 25.00)
+
+insert into Platillos (Nombre, Precio) values ('Huevos', 65.00)
+
+insert into Platillos (Nombre, Precio) values ('Hot cakes', 55.00)
+
+insert into Platillos (Nombre, Precio) values ('Hamburguesa', 85.00)
+
+insert into Platillos (Nombre, Precio) values ('Ensalada', 60.00)
+
+insert into Platillos (Nombre, Precio) values ('Orden de tacos', 70.00)
+
+insert into PlatillosCategorias (IdPlatillo, IdCategoria) values (1, 1)
+
+insert into PlatillosCategorias (IdPlatillo, IdCategoria) values (2, 1)
+
+insert into PlatillosCategorias (IdPlatillo, IdCategoria) values (3, 1)
+
+insert into PlatillosCategorias (IdPlatillo, IdCategoria) values (4, 1)
+
+insert into PlatillosCategorias (IdPlatillo, IdCategoria) values (5, 1)
+
+insert into PlatillosCategorias (IdPlatillo, IdCategoria) values (6, 2)
+
+insert into PlatillosCategorias (IdPlatillo, IdCategoria) values (7, 2)
+
+insert into PlatillosCategorias (IdPlatillo, IdCategoria) values (8, 2)
+
+insert into PlatillosCategorias (IdPlatillo, IdCategoria) values (9, 2)
+
+insert into PlatillosCategorias (IdPlatillo, IdCategoria) values (10, 2)
+
+----Creaacion de Procedimientos de almacenado----
+
+Create procedure spListarBebidas
+as
+select P.Id, Nombre, Precio, C.Descripcion 
+from Platillos P inner join PlatillosCategorias PC 
+on PC.IdPlatillo = P.Id inner join Categorias C 
+on C.Id = PC.IdCategoria 
+where PC.IdCategoria = 1
+
+Create procedure spListarPlatillos
+as
+select P.Id, Nombre, Precio, C.Descripcion 
+from Platillos P inner join PlatillosCategorias PC 
+on PC.IdPlatillo = P.Id inner join Categorias C 
+on C.Id = PC.IdCategoria 
+where PC.IdCategoria = 2
