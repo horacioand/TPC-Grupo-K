@@ -14,7 +14,7 @@ namespace Dominio
         public int Stock { get; set; }
         public string Imagen { get; set; }
 
-        // Relación: Un producto puede estar en varios ítems de pedido
-        public ICollection<ItemPedido> ItemsPedido { get; set; }
+        // Relación
+        //public ICollection<ItemPedido> ItemsPedido { get; set; }
     }
 }
