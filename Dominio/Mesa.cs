@@ -8,10 +8,15 @@ namespace Dominio
 {
     public class Mesa
     {
-        public int NumMesa { get; set; }
-        public  int Clientes { get; set; }
-        public Usuario Mesero { get; set; }
-        public bool Abierta { get; set; }
-        public List<Platillo> Platillo { get; set; }
+        public int Id { get; set; }
+        public int Numero { get; set; }
+        public int Capacidad { get; set; }
+        public bool Estado { get; set; } // true = Abierta, false = Cerrada
+
+
+        // Relación: Una mesa puede tener varios pedidos
+        public ICollection<Pedido> Pedidos { get; set; }
+        // Relación: Una mesa puede estar asignada a varios usuarios
+        public ICollection<AsignacionMesa> AsignacionesMesas { get; set; }
     }
 }

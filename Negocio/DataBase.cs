@@ -14,7 +14,7 @@ namespace Negocio
 
         public DataBase()
         {
-            conn = new SqlConnection("server=.\\SQLEXPRESS01 ; database=RESTAURANT ; integrated security = true");
+            conn = new SqlConnection("server=.\\SQLEXPRESS ; database=RESTAURANT ; integrated security = true");
             cmd = new SqlCommand();
         }
         public SqlDataReader Reader { get { return reader; } }
