@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Dominio;
 using System.Data.SqlClient;
+using System.Reflection.Emit;
 namespace Negocio
 {
     public class UsuarioDB
@@ -40,5 +41,30 @@ namespace Negocio
                 dataBase.closeConn();
             }
         }  
+
+        public Usuario loginUsuario(string usuario, string password)
+        {
+            DataBase dataBase = new DataBase();
+            Usuario user = new Usuario();
+            try
+            {
+                dataBase.setQuery("select Id, Nombre, Usuario, Contrasena, Rol from Usuarios where Usuario = '" + usuario + "' and Contrasena = '" + password + "'");
+                dataBase.executeQuery();
+                if (dataBase.Reader.Read())
+                {
+                    user.Id = (int)dataBase.Reader["Id"];
+                    user.Nombre = (string)dataBase.Reader["Nombre"];
+                    user.Contrasena = (string)dataBase.Reader["Contrasena"];
+                    user.Rol = (bool)dataBase.Reader["Rol"];
+                }
+                return user;
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+
+        }
     }
 }
