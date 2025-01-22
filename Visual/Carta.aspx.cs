@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Dominio;
+using Negocio;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -11,6 +13,15 @@ namespace Visual
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            ProductosDB productosDB = new ProductosDB();
+            List<Producto> productos = productosDB.listarProductos();
+            foreach (var item in productos)
+            {
+                Button btn = new Button();
+                btn.Text = item.Nombre;
+                btn.ID = item.Id.ToString();
+                carta.Controls.Add(btn);
+            }
 
         }
     }
