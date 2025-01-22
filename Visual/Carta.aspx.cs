@@ -13,15 +13,26 @@ namespace Visual
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            cargarMenu();
+        }
+        protected void cargarMenu()
+        {
             ProductosDB productosDB = new ProductosDB();
             List<Producto> productos = productosDB.listarProductos();
             foreach (var item in productos)
             {
-                Button btn = new Button();
-                btn.Text = item.Nombre;
-                btn.ID = item.Id.ToString();
+                Button btn = new Button
+                {
+                    Text = item.Nombre,
+                    ID = item.Id.ToString(),
+                };
+                btn.Click += new EventHandler(Btn_click);
+                btn.CssClass = "btn btn-warning";
                 carta.Controls.Add(btn);
             }
+        }
+        protected void Btn_click(object sender, EventArgs e)
+        {
 
         }
     }
