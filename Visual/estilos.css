@@ -1,0 +1,16 @@
+﻿body {
+}
+
+.contenedor {
+    display: flex;
+    justify-content: center;
+}
+
+.margen {
+    margin: 10px;
+}
+
+.divpanelcontrol {
+    display: flex;
+    flex-direction: column;
+}
