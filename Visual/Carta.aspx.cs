@@ -11,29 +11,33 @@ namespace Visual
 {
     public partial class Carta : System.Web.UI.Page
     {
+        List<Producto> productos = new List<Producto>();
         protected void Page_Load(object sender, EventArgs e)
         {
+            ProductosDB productosDB = new ProductosDB();
+            productos = productosDB.listarProductos();
             cargarMenu();
         }
         protected void cargarMenu()
         {
-            ProductosDB productosDB = new ProductosDB();
-            List<Producto> productos = productosDB.listarProductos();
             foreach (var item in productos)
             {
                 Button btn = new Button
                 {
                     Text = item.Nombre,
-                    ID = item.Id.ToString(),
+                    ID = "btn" + item.Id.ToString(),
                 };
-                btn.Click += new EventHandler(Btn_click);
+                if (Session["MesaSeleccionada"] == null)
+                {
+                    btn.Click += (sender, e) => Btn_click(sender, e, item.Id);
+                }
                 btn.CssClass = "btn btn-warning margen";
                 carta.Controls.Add(btn);
             }
         }
-        protected void Btn_click(object sender, EventArgs e)
-        {
-
+        protected void Btn_click(object sender, EventArgs e, int productId)
+        {           
+            Producto aux = productos.Find(a => a.Id == productId);
         }
     }
 }
