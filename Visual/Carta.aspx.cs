@@ -27,7 +27,7 @@ namespace Visual
                     ID = item.Id.ToString(),
                 };
                 btn.Click += new EventHandler(Btn_click);
-                btn.CssClass = "btn btn-warning";
+                btn.CssClass = "btn btn-warning margen";
                 carta.Controls.Add(btn);
             }
         }

@@ -26,7 +26,8 @@
                     <div class="navbar-nav">
                         <a class="nav-link active" aria-current="page" href="Default.aspx">Inicio</a>
                         <a class="nav-link active" href="Carta.aspx">Carta</a>
-                        <a class="nav-link active" href="Login.aspx">Ingresar</a>
+                        <a class="nav-link active" href="Login.aspx">Ingresar</a>       
+                        <asp:Button ID="btnPanelControl" Onclick="btnPanelControl_Click" CssClass="btn btn-secondary" runat="server" Text="Panel de Control" />
                     </div>
                 </div>
             </div>

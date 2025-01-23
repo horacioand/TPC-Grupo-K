@@ -33,8 +33,9 @@ namespace Visual
             }else
             {
                 Session.Add("usuario", user);
-            }
+                Response.Redirect("Default.aspx");
 
+            }
         }
     }
 }
