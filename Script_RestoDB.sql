@@ -1,13 +1,13 @@
 use master;
 GO
--- Creación de la base de datos
+-- Creaciï¿½n de la base de datos
 CREATE DATABASE RESTO_DB;
 GO
 
 USE RESTO_DB;
 GO
 
--- Creación de la tabla Usuarios
+-- Creaciï¿½n de la tabla Usuarios
 CREATE TABLE Usuarios (
     Id INT PRIMARY KEY IDENTITY,
     Nombre NVARCHAR(100) NOT NULL,
@@ -17,14 +17,14 @@ CREATE TABLE Usuarios (
 );
 GO
 
--- Inserción de datos en Usuarios
+-- Inserciï¿½n de datos en Usuarios
 INSERT INTO Usuarios (Nombre, Usuario, Contrasena, Rol) VALUES
 ('Admin', 'admin', 'admin123', 1),
 ('Mesero1', 'mesero1', 'password1', 0),
 ('Mesero2', 'mesero2', 'password2', 0);
 GO
 
--- Creación de la tabla Mesas
+-- Creaciï¿½n de la tabla Mesas
 CREATE TABLE Mesas (
     Id INT PRIMARY KEY IDENTITY,
     Numero INT UNIQUE NOT NULL,
@@ -33,14 +33,14 @@ CREATE TABLE Mesas (
 );
 GO
 
--- Inserción de datos en Mesas
+-- Inserciï¿½n de datos en Mesas
 INSERT INTO Mesas (Numero, Capacidad, Estado) VALUES
 (1, 4, 1),
 (2, 6, 1),
 (3, 2, 0);
 GO
 
--- Creación de la tabla Productos
+-- Creaciï¿½n de la tabla Productos
 CREATE TABLE Productos (
     Id INT PRIMARY KEY IDENTITY,
     Nombre NVARCHAR(100) NOT NULL,
@@ -50,16 +50,16 @@ CREATE TABLE Productos (
 );
 GO
 
--- Inserción de datos en Productos
+-- Inserciï¿½n de datos en Productos
 INSERT INTO Productos (Nombre, Precio, Stock, Imagen) VALUES
 ('Pizza Margarita', 10.50, 50, 'https://example.com/images/pizza_margarita.jpg'),
 ('Hamburguesa', 8.99, 100, 'https://example.com/images/hamburguesa.jpg'),
-('Ensalada César', 6.75, 30, 'https://example.com/images/ensalada_cesar.jpg'),
+('Ensalada Cï¿½sar', 6.75, 30, 'https://example.com/images/ensalada_cesar.jpg'),
 ('Coca-Cola', 1.50, 200, 'https://example.com/images/coca_cola.jpg'),
 ('Agua Mineral', 1.00, 150, 'https://example.com/images/agua_mineral.jpg');
 GO
 
--- Creación de la tabla Pedidos
+-- Creaciï¿½n de la tabla Pedidos
 CREATE TABLE Pedidos (
     Id INT PRIMARY KEY IDENTITY,
     Fecha DATETIME NOT NULL DEFAULT GETDATE(),
@@ -69,13 +69,13 @@ CREATE TABLE Pedidos (
 );
 GO
 
--- Inserción de datos en Pedidos
+-- Inserciï¿½n de datos en Pedidos
 INSERT INTO Pedidos (Fecha, Estado, Total, IdMesa) VALUES
 (GETDATE(), 1, 45.00, 1),
 (GETDATE(), 0, 32.75, 2);
 GO
 
--- Creación de la tabla ItemsPedido
+-- Creaciï¿½n de la tabla ItemsPedido
 CREATE TABLE ItemsPedido (
     Id INT PRIMARY KEY IDENTITY,
     Cantidad INT NOT NULL,
@@ -86,7 +86,7 @@ CREATE TABLE ItemsPedido (
 );
 GO
 
--- Inserción de datos en ItemsPedido
+-- Inserciï¿½n de datos en ItemsPedido
 INSERT INTO ItemsPedido (Cantidad, PrecioUnitario, IdPedido, IdProducto) VALUES
 (2, 10.50, 1, 1),
 (1, 8.99, 1, 2),
@@ -96,7 +96,7 @@ INSERT INTO ItemsPedido (Cantidad, PrecioUnitario, IdPedido, IdProducto) VALUES
 GO
 
 
--- Creación de la tabla Turnos (En caso que a futuro necesitemos)
+-- Creaciï¿½n de la tabla Turnos (En caso que a futuro necesitemos)
 --CREATE TABLE Turnos (
 --    Id INT PRIMARY KEY IDENTITY,
 --    Fecha DATE NOT NULL,
@@ -106,14 +106,14 @@ GO
 --);
 --GO
 
--- Inserción de datos en Turnos
+-- Inserciï¿½n de datos en Turnos
 --INSERT INTO Turnos (Fecha, HoraInicio, HoraFin, IdUsuario) VALUES
 --('2025-01-15', '08:00:00', '16:00:00', 2),
 --('2025-01-15', '16:00:00', '00:00:00', 3);
 --GO
 
 
--- Creación de la tabla Ventas
+-- Creaciï¿½n de la tabla Ventas
 CREATE TABLE Ventas (
     Id INT PRIMARY KEY IDENTITY,
     IdMesero INT NOT NULL FOREIGN KEY REFERENCES Usuarios(Id),
@@ -124,13 +124,13 @@ CREATE TABLE Ventas (
 );
 GO
 
--- Inserción de datos en Ventas
+-- Inserciï¿½n de datos en Ventas
 INSERT INTO Ventas (IdMesero, Fecha, TotalCuenta, PlatillosConsumidos, NumeroPersonas) VALUES
 (2, GETDATE(), 45.00, 3, 4),
 (3, GETDATE(), 32.75, 2, 2);
 GO
 
--- Creación de la tabla AsignacionMesas
+-- Creaciï¿½n de la tabla AsignacionMesas
 CREATE TABLE AsignacionMesas (
     Id INT PRIMARY KEY IDENTITY,
     IdMesa INT NOT NULL FOREIGN KEY REFERENCES Mesas(Id),
@@ -139,7 +139,7 @@ CREATE TABLE AsignacionMesas (
 );
 GO
 
--- Inserción de datos en AsignacionMesas
+-- Inserciï¿½n de datos en AsignacionMesas
 INSERT INTO AsignacionMesas (IdMesa, IdUsuario, Fecha) VALUES
 (1, 2, '2025-01-15'),
 (2, 3, '2025-01-15');

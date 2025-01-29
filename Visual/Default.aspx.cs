@@ -13,8 +13,26 @@ namespace Visual
         protected void Page_Load(object sender, EventArgs e)
         {
             //Prueba para ver si funciona listar de user
-            UsuarioDB usuarioDB = new UsuarioDB();
-            List<Usuario> listaUsuario = usuarioDB.listar();
+
+            if (Session["usuario"] == null)
+            {
+                Response.Redirect("Login.aspx");
+            }
+            else
+            {
+                Usuario usuario = (Usuario)Session["usuario"];
+                MesaDB mesaDB = new MesaDB();
+                List<Mesa> listaMesa = mesaDB.listaAsignada(usuario.Id);
+                dgvMesas.DataSource = listaMesa;
+                dgvMesas.DataBind();
+                
+            }
+        }
+
+        protected void dgvMesas_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            var id = dgvMesas.SelectedDataKey.Value.ToString();
+            // Response.Redirect();
         }
     }
 }
