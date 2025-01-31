@@ -1,13 +1,11 @@
-use master;
-GO
--- Creaci�n de la base de datos
+-- Crear base de datos
 CREATE DATABASE RESTO_DB;
 GO
 
 USE RESTO_DB;
 GO
 
--- Creaci�n de la tabla Usuarios
+-- Tabla Usuarios
 CREATE TABLE Usuarios (
     Id INT PRIMARY KEY IDENTITY,
     Nombre NVARCHAR(100) NOT NULL,
@@ -15,51 +13,40 @@ CREATE TABLE Usuarios (
     Contrasena NVARCHAR(255) NOT NULL,
     Rol BIT NOT NULL
 );
-GO
 
--- Inserci�n de datos en Usuarios
-INSERT INTO Usuarios (Nombre, Usuario, Contrasena, Rol) VALUES
-('Admin', 'admin', 'admin123', 1),
-('Mesero1', 'mesero1', 'password1', 0),
-('Mesero2', 'mesero2', 'password2', 0);
-GO
-
--- Creaci�n de la tabla Mesas
+-- Tabla Mesas
 CREATE TABLE Mesas (
     Id INT PRIMARY KEY IDENTITY,
     Numero INT UNIQUE NOT NULL,
     Capacidad INT NOT NULL,
     Estado BIT NOT NULL
 );
-GO
 
--- Inserci�n de datos en Mesas
-INSERT INTO Mesas (Numero, Capacidad, Estado) VALUES
-(1, 4, 1),
-(2, 6, 1),
-(3, 2, 0);
-GO
+-- Tabla AsignacionMesas
+CREATE TABLE AsignacionMesas (
+    Id INT PRIMARY KEY IDENTITY,
+    IdMesa INT NOT NULL FOREIGN KEY REFERENCES Mesas(Id),
+    IdUsuario INT NOT NULL FOREIGN KEY REFERENCES Usuarios(Id),
+    Fecha DATE NOT NULL DEFAULT GETDATE()
+);
 
--- Creaci�n de la tabla Productos
+-- Tabla Categorias
+CREATE TABLE Categorias (
+    Id INT PRIMARY KEY IDENTITY,
+    Nombre NVARCHAR(100) NOT NULL
+);
+
+-- Tabla Productos
 CREATE TABLE Productos (
     Id INT PRIMARY KEY IDENTITY,
     Nombre NVARCHAR(100) NOT NULL,
     Precio MONEY NOT NULL,
     Stock INT NOT NULL,
-    Imagen NVARCHAR(MAX) NULL
+    UrlImagen NVARCHAR(255) NOT NULL,
+    IdCategoria INT NOT NULL FOREIGN KEY REFERENCES Categorias(Id)
 );
-GO
 
--- Inserci�n de datos en Productos
-INSERT INTO Productos (Nombre, Precio, Stock, Imagen) VALUES
-('Pizza Margarita', 10.50, 50, 'https://example.com/images/pizza_margarita.jpg'),
-('Hamburguesa', 8.99, 100, 'https://example.com/images/hamburguesa.jpg'),
-('Ensalada C�sar', 6.75, 30, 'https://example.com/images/ensalada_cesar.jpg'),
-('Coca-Cola', 1.50, 200, 'https://example.com/images/coca_cola.jpg'),
-('Agua Mineral', 1.00, 150, 'https://example.com/images/agua_mineral.jpg');
-GO
-
--- Creaci�n de la tabla Pedidos
+-- Tabla Pedidos
 CREATE TABLE Pedidos (
     Id INT PRIMARY KEY IDENTITY,
     Fecha DATETIME NOT NULL DEFAULT GETDATE(),
@@ -67,53 +54,27 @@ CREATE TABLE Pedidos (
     Total MONEY NOT NULL DEFAULT 0,
     IdMesa INT NOT NULL FOREIGN KEY REFERENCES Mesas(Id)
 );
-GO
 
--- Inserci�n de datos en Pedidos
-INSERT INTO Pedidos (Fecha, Estado, Total, IdMesa) VALUES
-(GETDATE(), 1, 45.00, 1),
-(GETDATE(), 0, 32.75, 2);
-GO
-
--- Creaci�n de la tabla ItemsPedido
+-- Tabla ItemsPedido
 CREATE TABLE ItemsPedido (
     Id INT PRIMARY KEY IDENTITY,
     Cantidad INT NOT NULL,
     PrecioUnitario MONEY NOT NULL,
-    Subtotal AS (Cantidad * PrecioUnitario) PERSISTED,
+    Subtotal AS (Cantidad * PrecioUnitario),
     IdPedido INT NOT NULL FOREIGN KEY REFERENCES Pedidos(Id),
     IdProducto INT NOT NULL FOREIGN KEY REFERENCES Productos(Id)
 );
-GO
 
--- Inserci�n de datos en ItemsPedido
-INSERT INTO ItemsPedido (Cantidad, PrecioUnitario, IdPedido, IdProducto) VALUES
-(2, 10.50, 1, 1),
-(1, 8.99, 1, 2),
-(3, 1.50, 1, 4),
-(1, 6.75, 2, 3),
-(1, 1.00, 2, 5);
-GO
+-- Tabla Turnos
+CREATE TABLE Turnos (
+    Id INT PRIMARY KEY IDENTITY,
+    Fecha DATE NOT NULL,
+    HoraInicio TIME NOT NULL,
+    HoraFin TIME NOT NULL,
+    IdUsuario INT NOT NULL FOREIGN KEY REFERENCES Usuarios(Id)
+);
 
-
--- Creaci�n de la tabla Turnos (En caso que a futuro necesitemos)
---CREATE TABLE Turnos (
---    Id INT PRIMARY KEY IDENTITY,
---    Fecha DATE NOT NULL,
---    HoraInicio TIME NOT NULL,
---    HoraFin TIME NOT NULL,
---    IdUsuario INT NOT NULL FOREIGN KEY REFERENCES Usuarios(Id)
---);
---GO
-
--- Inserci�n de datos en Turnos
---INSERT INTO Turnos (Fecha, HoraInicio, HoraFin, IdUsuario) VALUES
---('2025-01-15', '08:00:00', '16:00:00', 2),
---('2025-01-15', '16:00:00', '00:00:00', 3);
---GO
-
-
--- Creaci�n de la tabla Ventas
+-- Tabla Ventas
 CREATE TABLE Ventas (
     Id INT PRIMARY KEY IDENTITY,
     IdMesero INT NOT NULL FOREIGN KEY REFERENCES Usuarios(Id),
@@ -122,25 +83,64 @@ CREATE TABLE Ventas (
     PlatillosConsumidos INT NOT NULL,
     NumeroPersonas INT NOT NULL
 );
-GO
 
--- Inserci�n de datos en Ventas
-INSERT INTO Ventas (IdMesero, Fecha, TotalCuenta, PlatillosConsumidos, NumeroPersonas) VALUES
-(2, GETDATE(), 45.00, 3, 4),
-(3, GETDATE(), 32.75, 2, 2);
-GO
+-- Insertar datos en Usuarios
+INSERT INTO Usuarios (Nombre, Usuario, Contrasena, Rol) VALUES
+('Juan Pérez', 'juan', '12345', 1),
+('Ana López', 'ana', '67890', 0),
+('Carlos Gómez', 'carlos', 'abcde', 0);
 
--- Creaci�n de la tabla AsignacionMesas
-CREATE TABLE AsignacionMesas (
-    Id INT PRIMARY KEY IDENTITY,
-    IdMesa INT NOT NULL FOREIGN KEY REFERENCES Mesas(Id),
-    IdUsuario INT NOT NULL FOREIGN KEY REFERENCES Usuarios(Id),
-    Fecha DATE NOT NULL DEFAULT GETDATE()
-);
-GO
+-- Insertar datos en Mesas
+INSERT INTO Mesas (Numero, Capacidad, Estado) VALUES
+(1, 4, 1),
+(2, 2, 0),
+(3, 6, 1),
+(4, 8, 0),
+(5, 4, 1);
 
--- Inserci�n de datos en AsignacionMesas
+-- Insertar datos en AsignacionMesas
 INSERT INTO AsignacionMesas (IdMesa, IdUsuario, Fecha) VALUES
-(1, 2, '2025-01-15'),
-(2, 3, '2025-01-15');
-GO
+(1, 1, '2025-01-01'),
+(2, 2, '2025-01-02'),
+(3, 1, '2025-01-03'),
+(4, 3, '2025-01-04'),
+(5, 2, '2025-01-05');
+
+-- Insertar datos en Categorias
+INSERT INTO Categorias (Nombre) VALUES
+('Bebidas'),
+('Comidas'),
+('Postres');
+
+-- Insertar datos en Productos
+INSERT INTO Productos (Nombre, Precio, Stock, UrlImagen, IdCategoria) VALUES
+('Coca Cola', 1.5, 50, 'https://acdn.mitiendanube.com/stores/861/458/products/351391-daa87de693ab884fa816700111096932-640-0.jpg', 1),
+('Fanta', 1.5, 30, 'https://dcdn.mitiendanube.com/stores/001/151/835/products/77908950010171-f5d162eb6218e6544815890789301064-640-0.jpg', 1),
+('Sprite', 1.5, 40, 'https://acdn.mitiendanube.com/stores/001/144/141/products/whatsapp-image-2021-08-25-at-11-08-571-f2321c146eb51f1dac16299005725116-640-0.jpeg', 1),
+('Agua Mineral', 1.0, 60, 'https://acdn.mitiendanube.com/stores/001/157/846/products/556223-800-auto1-ce2a3f6e53b82deb5116354447231576-640-0.jpg', 1),
+('Café', 2.0, 20, 'https://example.com/images/cafe.jpg', 1),
+('Té', 1.8, 25, 'https://example.com/images/te.jpg', 1),
+('Jugo de Naranja', 2.5, 15, 'https://acdn.mitiendanube.com/stores/001/127/840/products/jugo-natural-de-naranja-x-500cc-estancia-los-naranjos1-4402d488109e7e3fcd16242294926165-640-0.jpg', 1),
+('Jugo de Manzana', 2.5, 10, 'https://png.pngtree.com/png-vector/20241224/ourlarge/pngtree-fresh-apple-juice-bottle-with-organic-red-apples-and-leaves-png-image_14843478.png', 1),
+('Cerveza', 3.0, 35, 'https://acdn.mitiendanube.com/stores/001/163/250/products/img_7784-1024x10241-0a2ba5ea767e775a0815882026581912-640-0.jpg', 1),
+('Vino', 5.0, 20, 'https://acdn.mitiendanube.com/stores/004/156/900/products/proyecto-chino-53-92e24f1745a0729ea217316171020203-640-0.jpg', 1),
+
+('Hamburguesa', 5.0, 15, 'https://www.hola.com/horizon/square/cc77c84852d0-dia-hamburguesa-t.jpg?im=Resize=(640),type=downsize', 2),
+('Pizza', 8.0, 10, 'https://acdn.mitiendanube.com/stores/001/497/896/products/pizza-muzza-jamon-tabla1-5757811e6ccb5d33a117019968750411-640-0.jpg', 2),
+('Pasta', 7.0, 12, 'https://example.com/images/pasta.jpg', 2),
+('Ensalada', 4.5, 20, 'https://example.com/images/ensalada.jpg', 2),
+('Sopa', 3.5, 25, 'https://example.com/images/sopa.jpg', 2),
+('Pollo Asado', 6.5, 10, 'https://example.com/images/pollo_asado.jpg', 2),
+('Tacos', 4.0, 30, 'https://example.com/images/tacos.jpg', 2),
+('Sushi', 9.0, 5, 'https://example.com/images/sushi.jpg', 2),
+('Carne Asada', 10.0, 8, 'https://example.com/images/carne_asada.jpg', 2),
+('Pescado', 8.5, 7, 'https://example.com/images/pescado.jpg', 2),
+
+('Pastel de Chocolate', 3.0, 10, 'https://example.com/images/pastel_chocolate.jpg', 3),
+('Helado', 2.5, 20, 'https://example.com/images/helado.jpg', 3),
+('Flan', 2.0, 15, 'https://example.com/images/flan.jpg', 3),
+('Tarta de Manzana', 3.5, 8, 'https://example.com/images/tarta_manzana.jpg', 3),
+('Mousse de Limón', 3.0, 12, 'https://example.com/images/mousse_limon.jpg', 3),
+('Brownie', 2.8, 10, 'https://example.com/images/brownie.jpg', 3),
+('Gelatina', 1.5, 25, 'https://example.com/images/gelatina.jpg', 3),
+('Cheesecake', 4.5, 8, 'https://example.com/images/cheesecake.jpg', 3);
