@@ -10,6 +10,7 @@ namespace Visual
 {
     public partial class Default : System.Web.UI.Page
     {
+        public List<Mesa> ListaMesas { get; set; }
         protected void Page_Load(object sender, EventArgs e)
         {
             //Prueba para ver si funciona listar de user
@@ -22,16 +23,15 @@ namespace Visual
             {
                 Usuario usuario = (Usuario)Session["usuario"];
                 MesaDB mesaDB = new MesaDB();
-                List<Mesa> listaMesa = mesaDB.listaAsignada(usuario.Id);
-                dgvMesas.DataSource = listaMesa;
-                dgvMesas.DataBind();
-                
+                ListaMesas = mesaDB.listaAsignada(usuario.Id);
+
+
             }
         }
 
         protected void dgvMesas_SelectedIndexChanged(object sender, EventArgs e)
         {
-            var id = dgvMesas.SelectedDataKey.Value.ToString();
+            
             // Response.Redirect();
         }
     }

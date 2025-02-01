@@ -2,27 +2,23 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <style>
-        .sin-bordes-externos{
-            border:none !important;
+        .sin-bordes-externos {
+            border: none !important;
         }
     </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MasterSite" runat="server">
-    <div class="row">
-        <div class="col"></div>
-        <div class="col-sm-10 col-lg-5">
-            <h2>Lista de Mesas</h2>
-            <asp:GridView runat="server" ID="dgvMesas" DataKeyNames="Id" AutoGenerateColumns="false" OnSelectedIndexChanged="dgvMesas_SelectedIndexChanged" CssClass="table table-borderless sin-bordes-externos table-striped text-center table-sm">
-                <Columns>
-                    <asp:BoundField DataField="Numero" HeaderText="Numero" />
-                    <asp:CommandField SelectText="Ver" ControlStyle-CssClass=" btn btn-primary btn-lg form-control" HeaderText="Mesa" runat="server" ShowSelectButton="true"></asp:CommandField>
-                </Columns>
-            </asp:GridView>
+    <div class="row row-cols-sm-1 row-cols-md-3 g-4 justify-content-center">
+            <% foreach (Dominio.Mesa mesa in ListaMesas) { %>
+            <div class="col d-flex justify-content-center">
+                <div class="card m-3" style="width: 18rem;">
+                    <div class="rounded card-body text-center bg-dark">
+                        <h5 class="card-title text-warning">Mesa <%: mesa.Numero %></h5>
+                        <p class="card-text text-warning">Capacidad: <%: mesa.Capacidad %></p>
+                        <a href="#" class="btn btn-warning">Abrir Pedido</a>
+                    </div>
+                </div>
+            </div>
+            <% } %>
         </div>
-        <div class="col"></div>
-
-    </div>
-
-
-
 </asp:Content>

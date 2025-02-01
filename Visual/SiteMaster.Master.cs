@@ -15,6 +15,7 @@ namespace Visual
             if (Session["usuario"] != null)
             {
                 Usuario aux = (Usuario)Session["usuario"];
+                btnIngresar.Visible = false;
                 if (!aux.Rol)
                 {
                     btnPanelControl.Visible = false;

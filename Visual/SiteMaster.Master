@@ -12,32 +12,39 @@
     <link href="estilos.css" rel="stylesheet" />
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </head>
-<body>
+<body class="d-flex flex-column min-vh-100">
     <form id="form1" runat="server">
 
         <!--  Navbar  -->
-        <nav class="navbar navbar-expand-lg bg-primary">
+        <nav class="navbar navbar-expand-lg bg-dark">
             <div class="container-fluid">
-                <a class="navbar-brand" href="#">Restó</a>
+                <a class="navbar-brand text-warning" href="#">RESTOAPP</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                     <div class="navbar-nav">
-                        <a class="nav-link active" aria-current="page" href="Default.aspx">Inicio</a>
-                        <a class="nav-link active" href="Carta.aspx">Carta</a>
-                        <a class="nav-link active" href="Login.aspx">Ingresar</a>       
-                        <asp:Button ID="btnPanelControl" Onclick="btnPanelControl_Click" CssClass="btn btn-secondary" runat="server" Text="Panel de Control" />
+                        <a class="nav-link active text-warning" aria-current="page" href="Default.aspx">Inicio</a>
+                        <a class="nav-link active text-warning" href="Carta.aspx">Carta</a>
+                        <a class="nav-link active text-warning" href="Login.aspx" runat="server" id="btnIngresar">Ingresar</a>
+                        <asp:Button ID="btnPanelControl" OnClick="btnPanelControl_Click" CssClass="btn btn-warning" runat="server" Text="Panel de Control" />
                     </div>
                 </div>
             </div>
         </nav>
 
         <!--  Contenido  -->
-        <div>
+        <div class="container-fluid bg-secondary vh-100 d-flex flex-column">
             <asp:ContentPlaceHolder ID="MasterSite" runat="server">
             </asp:ContentPlaceHolder>
         </div>
+
+
+        <!-- Footer -->
+    <footer class="bg-dark text-white text-center py-3">
+        © 2025 Gestión Resto. Todos los derechos reservados.
+    </footer>
+
     </form>
 </body>
 </html>
