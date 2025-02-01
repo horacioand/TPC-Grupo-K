@@ -82,6 +82,7 @@
     <Content Include="Content\bootstrap.rtl.css" />
     <Content Include="Content\bootstrap.rtl.min.css" />
     <Content Include="Default.aspx" />
+    <Content Include="DetallesMesa.aspx" />
     <Content Include="estilos.css" />
     <Content Include="Global.asax" />
     <Content Include="Login.aspx" />
@@ -108,6 +109,13 @@
     </Compile>
     <Compile Include="Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="DetallesMesa.aspx.cs">
+      <DependentUpon>DetallesMesa.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="DetallesMesa.aspx.designer.cs">
+      <DependentUpon>DetallesMesa.aspx</DependentUpon>
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>

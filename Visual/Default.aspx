@@ -15,7 +15,7 @@
                     <div class="rounded card-body text-center bg-dark">
                         <h5 class="card-title text-warning">Mesa <%: mesa.Numero %></h5>
                         <p class="card-text text-warning">Capacidad: <%: mesa.Capacidad %></p>
-                        <a href="#" class="btn btn-warning">Abrir Pedido</a>
+                        <a href="DetallesMesa.aspx?id=<%:mesa.Id %>" class="btn btn-warning">Abrir Pedido</a>
                     </div>
                 </div>
             </div>
