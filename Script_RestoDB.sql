@@ -144,3 +144,31 @@ INSERT INTO Productos (Nombre, Precio, Stock, UrlImagen, IdCategoria) VALUES
 ('Brownie', 2.8, 10, 'https://example.com/images/brownie.jpg', 3),
 ('Gelatina', 1.5, 25, 'https://example.com/images/gelatina.jpg', 3),
 ('Cheesecake', 4.5, 8, 'https://example.com/images/cheesecake.jpg', 3);
+
+-- Insertar datos en la tabla Pedidos
+INSERT INTO Pedidos (Fecha, Estado, Total, IdMesa)
+VALUES
+('2025-01-30 10:15:00', 1, 1200.00, 1),
+('2025-01-30 11:00:00', 0, 800.00, 2),
+('2025-01-30 13:00:00', 1, 1500.00, 3),
+('2025-01-31 14:30:00', 1, 2200.00, 4),
+('2025-01-31 15:45:00', 1, 950.00, 5),
+('2025-01-31 16:00:00', 0, 1700.00, 1),
+('2025-01-31 17:30:00', 1, 1200.00, 2),
+('2025-02-01 09:00:00', 1, 1800.00, 3),
+('2025-02-01 10:45:00', 0, 1100.00, 4),
+('2025-02-01 12:00:00', 1, 2100.00, 5);
+
+-- Insertar datos en la tabla ItemsPedido
+INSERT INTO ItemsPedido (Cantidad, PrecioUnitario, IdPedido, IdProducto)
+VALUES
+(2, 300.00, 7, 1),  -- 2 unidades del producto A en el pedido 1
+(1, 400.00, 8, 12),  -- 1 unidad del producto B en el pedido 2
+(3, 250.00, 9, 11),  -- 3 unidades del producto C en el pedido 3
+(2, 500.00, 10, 15),  -- 2 unidades del producto A en el pedido 4
+(1, 950.00, 11, 4),  -- 1 unidad del producto D en el pedido 5
+(1, 300.00, 7, 1),  -- 1 unidad del producto B en el pedido 6
+(4, 100.00, 8, 5),  -- 4 unidades del producto E en el pedido 7
+(3, 150.00, 9, 9),  -- 3 unidades del producto F en el pedido 8
+(2, 550.00, 10, 16),  -- 2 unidades del producto G en el pedido 9
+(1, 900.00, 15, 16); -- 1 unidad del producto H en el pedido 10
