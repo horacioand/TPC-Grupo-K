@@ -8,7 +8,7 @@ namespace Negocio
 {
     public class PedidoDB
     {
-        public List<Pedido> listarMesa(string idMesa)
+        public List<Pedido> listarPedidosDia (int idMesa)
         {
             DataBase dataBase = new DataBase();
             List<Pedido> listaPedidos = new List<Pedido>();

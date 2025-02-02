@@ -19,9 +19,21 @@ namespace Visual
             else
             {
                 var id = Request.QueryString["id"];
-                List<Pedido> listaPedidos = new PedidoDB().listarMesa(id);
-                dgvPedidos.DataSource = listaPedidos;
-                dgvPedidos.DataBind();
+                List<Mesa> listaMesa = (List<Mesa>)Session["ListaMesas"];
+
+                // Buscar la mesa seleccionada por su ID
+                Mesa mesaSeleccionada = listaMesa.FirstOrDefault(m => m.Id.ToString() == id);
+                if (mesaSeleccionada != null)
+                {
+                    PedidoDB pedidoDb = new PedidoDB();
+                    mesaSeleccionada.Pedidos = pedidoDb.listarPedidosDia(mesaSeleccionada.Id);
+                    dgvPedidos.DataSource = mesaSeleccionada.Pedidos;
+                    dgvPedidos.DataBind();
+                }
+                else
+                {
+                    Response.Redirect("Default.aspx");
+                }
             }
 
         }

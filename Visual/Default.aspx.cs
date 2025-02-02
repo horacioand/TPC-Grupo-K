@@ -13,8 +13,6 @@ namespace Visual
         public List<Mesa> ListaMesas { get; set; }
         protected void Page_Load(object sender, EventArgs e)
         {
-            //Prueba para ver si funciona listar de user
-
             if (Session["usuario"] == null)
             {
                 Response.Redirect("Login.aspx");
@@ -23,9 +21,9 @@ namespace Visual
             {
                 Usuario usuario = (Usuario)Session["usuario"];
                 MesaDB mesaDB = new MesaDB();
+                PedidoDB pedidoDB = new PedidoDB();
                 ListaMesas = mesaDB.listaAsignada(usuario.Id);
-
-
+                Session["ListaMesas"] = ListaMesas;
             }
         }
 
