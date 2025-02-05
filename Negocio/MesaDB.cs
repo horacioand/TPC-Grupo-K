@@ -40,5 +40,31 @@ namespace Negocio
                 dataBase.closeConn();
             }
         }
+
+        public int traerIdPedido(int idmesa)
+        {
+            int id = 0;
+            DataBase dataBase = new DataBase();
+            try
+            {
+                string consulta = "select Id as IdPedido from Pedidos where IdMesa = " + idmesa + " and Estado = 1";
+                dataBase.setQuery(consulta);
+                dataBase.executeQuery();
+                if (dataBase.Reader.Read())
+                {
+                    id = (int)dataBase.Reader["IdPedido"];
+                }
+                return id;
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                dataBase.closeConn();
+            }
+        }
     }
 }

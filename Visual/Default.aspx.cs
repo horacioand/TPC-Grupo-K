@@ -23,7 +23,21 @@ namespace Visual
                 MesaDB mesaDB = new MesaDB();
                 PedidoDB pedidoDB = new PedidoDB();
                 ListaMesas = mesaDB.listaAsignada(usuario.Id);
+                cargarPedidos();
                 Session["ListaMesas"] = ListaMesas;
+
+            }
+        }
+
+        public void cargarPedidos()
+        {
+            MesaDB mesaDB = new MesaDB();
+            foreach (var item in ListaMesas)
+            {
+                if (item.Estado)
+                {
+                   item.IdPedido = mesaDB.traerIdPedido(item.Id); 
+                }
             }
         }
 

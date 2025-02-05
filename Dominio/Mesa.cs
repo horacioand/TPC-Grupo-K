@@ -12,6 +12,7 @@ namespace Dominio
         public int Numero { get; set; }
         public int Capacidad { get; set; }
         public bool Estado { get; set; } // true = Abierta, false = Cerrada
+        public int IdPedido { get; set; }
 
         // Relación: Una mesa puede tener varios pedidos
         public ICollection<Pedido> Pedidos { get; set; }

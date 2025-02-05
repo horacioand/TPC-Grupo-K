@@ -15,6 +15,11 @@
                     <div class="rounded card-body text-center bg-dark">
                         <h5 class="card-title text-warning">Mesa <%: mesa.Numero %></h5>
                         <p class="card-text text-warning">Capacidad: <%: mesa.Capacidad %></p>
+                        <p class="card-text text-warning">
+                            <% if (mesa.IdPedido != 0) {%>
+                            Id de Pedido: <%: mesa.IdPedido.ToString() %>
+                            <% }%>
+                        </p>
                         <a href="DetallesMesa.aspx?id=<%:mesa.Id %>" class="btn btn-warning">
                             <% if (mesa.Estado) {%>
                             Ver detalles
