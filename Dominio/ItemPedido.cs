@@ -14,8 +14,8 @@ namespace Dominio
         public decimal Subtotal => Cantidad * Producto.Precio;
 
         // Relación: Un ítem pertenece a un pedido
-        //public int IdPedido { get; set; }
-        public Pedido Pedido { get; set; }
+        public int IdPedido { get; set; }
+        //public Pedido Pedido { get; set; }
 
         // Relación: Un ítem está asociado a un producto
         //public int IdProducto { get; set; }

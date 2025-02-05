@@ -92,6 +92,7 @@ namespace Visual
             ItemPedido itemPedido = new ItemPedido();
             itemPedido.Cantidad = cantidad;
             itemPedido.Producto = producto;
+            itemPedido.IdPedido = int.Parse(Request.QueryString["idPedido"]);
             //Falta subirlo a la db
 
 
