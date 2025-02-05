@@ -49,7 +49,7 @@
                 </div>
             </div>
             <div>
-                <asp:Button ID="btnAgregar" CssClass="btn btn-warning margen" runat="server" Text="Agregar" />
+                <asp:Button ID="btnAgregar" CssClass="btn btn-warning margen" OnClick="btnAgregar_Click" runat="server" Text="Agregar" />
                 <asp:Button ID="btnCancelar" CssClass="btn btn-warning margen" OnClick="btnCancelar_Click" runat="server" Text="Cancelar" />
             </div>
         </div>

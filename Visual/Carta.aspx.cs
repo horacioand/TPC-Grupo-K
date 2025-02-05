@@ -27,6 +27,7 @@ namespace Visual
             productos = productosDB.listarProductos();
             cargarMenu();
         }
+
         protected void cargarMenu()
         {
             foreach (var item in productos)
@@ -44,6 +45,7 @@ namespace Visual
                 carta.Controls.Add(btn);
             }
         }
+
         protected void Btn_click(object sender, EventArgs e, int productId)
         {
             CantidadProductos.Visible = true;
@@ -80,6 +82,19 @@ namespace Visual
             cantidad++;
             ViewState["cantidad"] = cantidad;
             lblCantidad.Text = cantidad.ToString();
+        }
+
+        protected void btnAgregar_Click(object sender, EventArgs e)
+        {
+            CantidadProductos.Visible = false;
+            int cantidad = int.Parse(lblCantidad.Text);
+            Producto producto = productos.Find(aux => aux.Nombre == lblProducto.Text);
+            ItemPedido itemPedido = new ItemPedido();
+            itemPedido.Cantidad = cantidad;
+            itemPedido.Producto = producto;
+            //Falta subirlo a la db
+
+
         }
     }
 }
