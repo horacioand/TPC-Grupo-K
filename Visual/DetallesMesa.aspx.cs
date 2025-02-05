@@ -37,5 +37,14 @@ namespace Visual
             }
 
         }
+
+        protected void btnAgregarPedido_Click(object sender, EventArgs e)
+        {
+            string id = Request.QueryString["id"];
+            List<Mesa> listaMesa = (List<Mesa>)Session["ListaMesas"];
+            Mesa mesaSeleccionada = listaMesa.FirstOrDefault(m => m.Id.ToString() == id);
+            Session.Add("MesaSeleccionada", mesaSeleccionada);
+            Response.Redirect("Carta.aspx");
+        }
     }
 }

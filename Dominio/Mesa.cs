@@ -13,7 +13,6 @@ namespace Dominio
         public int Capacidad { get; set; }
         public bool Estado { get; set; } // true = Abierta, false = Cerrada
 
-
         // Relación: Una mesa puede tener varios pedidos
         public ICollection<Pedido> Pedidos { get; set; }
         // Relación: Una mesa puede estar asignada a varios usuarios

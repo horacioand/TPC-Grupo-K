@@ -27,10 +27,10 @@ namespace Visual
             }
         }
 
-        protected void dgvMesas_SelectedIndexChanged(object sender, EventArgs e)
+        protected void btnCerrarSesion_Click(object sender, EventArgs e)
         {
-            
-            // Response.Redirect();
+            Session["usuario"] = null;
+            Response.Redirect("Login.aspx");
         }
     }
 }

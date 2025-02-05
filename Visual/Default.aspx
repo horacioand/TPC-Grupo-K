@@ -15,10 +15,19 @@
                     <div class="rounded card-body text-center bg-dark">
                         <h5 class="card-title text-warning">Mesa <%: mesa.Numero %></h5>
                         <p class="card-text text-warning">Capacidad: <%: mesa.Capacidad %></p>
-                        <a href="DetallesMesa.aspx?id=<%:mesa.Id %>" class="btn btn-warning">Abrir Pedido</a>
+                        <a href="DetallesMesa.aspx?id=<%:mesa.Id %>" class="btn btn-warning">
+                            <% if (mesa.Estado) {%>
+                            Ver detalles
+                            <% } else {%>
+                            Abrir pedido
+                            <% } %>
+                        </a>
                     </div>
                 </div>
             </div>
             <% } %>
+        </div>
+        <div class="d-grid gap-2 col-6 mx-auto"> 
+             <asp:Button ID="btnCerrarSesion" CssClass="btn btn-warning m-2" Text="Cerrar sesion" runat="server" OnClick="btnCerrarSesion_Click" />
         </div>
 </asp:Content>

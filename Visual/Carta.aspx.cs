@@ -14,6 +14,15 @@ namespace Visual
         List<Producto> productos = new List<Producto>();
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (!IsPostBack)
+            {
+                ViewState["cantidad"] = 1;
+                CantidadProductos.Visible = false;
+            }
+            else
+            {
+                lblCantidad.Text = ViewState["cantidad"].ToString();
+            }
             ProductosDB productosDB = new ProductosDB();
             productos = productosDB.listarProductos();
             cargarMenu();
@@ -27,7 +36,7 @@ namespace Visual
                     Text = item.Nombre,
                     ID = "btn" + item.Id.ToString(),
                 };
-                if (Session["MesaSeleccionada"] == null)
+                if (Session["MesaSeleccionada"] != null)
                 {
                     btn.Click += (sender, e) => Btn_click(sender, e, item.Id);
                 }
@@ -36,8 +45,41 @@ namespace Visual
             }
         }
         protected void Btn_click(object sender, EventArgs e, int productId)
-        {           
+        {
+            CantidadProductos.Visible = true;
+            ViewState["cantidad"] = 1;
+            lblCantidad.Text = ViewState["cantidad"].ToString();
             Producto aux = productos.Find(a => a.Id == productId);
+            lblProducto.Text = aux.Nombre;
+        }
+
+        protected void btnCancelar_Click(object sender, EventArgs e)
+        {
+            CantidadProductos.Visible=false;
+            ViewState["cantidad"] = 1;
+        }
+
+        protected void btnMenos_Click(object sender, EventArgs e)
+        {
+            int cantidad = (int)ViewState["cantidad"];
+            if (cantidad == 1)
+            {
+                return;
+            }
+            else
+            {
+                cantidad--;
+                ViewState["cantidad"] = cantidad;
+                lblCantidad.Text = cantidad.ToString();
+            }
+        }
+
+        protected void btnMas_Click(object sender, EventArgs e)
+        {
+            int cantidad = (int)ViewState["cantidad"];
+            cantidad++;
+            ViewState["cantidad"] = cantidad;
+            lblCantidad.Text = cantidad.ToString();
         }
     }
 }
