@@ -10,6 +10,7 @@ namespace Visual
 {
     public partial class DetallesMesa : System.Web.UI.Page
     {
+        Mesa mesaSeleccionada = new Mesa();
         protected void Page_Load(object sender, EventArgs e)
         {
             if (Request.QueryString["id"] == null)
@@ -22,7 +23,7 @@ namespace Visual
                 List<Mesa> listaMesa = (List<Mesa>)Session["ListaMesas"];
 
                 // Buscar la mesa seleccionada por su ID
-                Mesa mesaSeleccionada = listaMesa.FirstOrDefault(m => m.Id.ToString() == id);
+                mesaSeleccionada = listaMesa.FirstOrDefault(m => m.Id.ToString() == id);
                 if (mesaSeleccionada != null)
                 {
                     PedidoDB pedidoDb = new PedidoDB();
@@ -40,11 +41,14 @@ namespace Visual
 
         protected void btnAgregarPedido_Click(object sender, EventArgs e)
         {
-            string id = Request.QueryString["id"];
-            List<Mesa> listaMesa = (List<Mesa>)Session["ListaMesas"];
-            Mesa mesaSeleccionada = listaMesa.FirstOrDefault(m => m.Id.ToString() == id);
-            Session.Add("MesaSeleccionada", mesaSeleccionada);
-            Response.Redirect("Carta.aspx");
+            if (mesaSeleccionada.Estado)
+            {
+                Response.Redirect("Carta.aspx?idPedido=" + mesaSeleccionada.IdPedido.ToString());
+            }else
+            {
+                //La mesa no esta abierta por lo que no tiene pedido, aqui crearle un pedido
+                //Y asiganrlo para poder pasarlo a la carta 
+            }
         }
     }
 }

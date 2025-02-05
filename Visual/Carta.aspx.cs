@@ -37,7 +37,7 @@ namespace Visual
                     Text = item.Nombre,
                     ID = "btn" + item.Id.ToString(),
                 };
-                if (Session["MesaSeleccionada"] != null)
+                if (Request.QueryString["idPedido"] != null)
                 {
                     btn.Click += (sender, e) => Btn_click(sender, e, item.Id);
                 }
