@@ -27,7 +27,7 @@ namespace Visual
                 if (mesaSeleccionada != null)
                 {
                     PedidoDB pedidoDb = new PedidoDB();
-                    mesaSeleccionada.Pedidos = pedidoDb.listarPedidosDia(mesaSeleccionada.Id);
+                    mesaSeleccionada.Pedidos = pedidoDb.listarItems(mesaSeleccionada.IdPedido);
                     dgvPedidos.DataSource = mesaSeleccionada.Pedidos;
                     dgvPedidos.DataBind();
                 }

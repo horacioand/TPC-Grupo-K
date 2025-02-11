@@ -65,5 +65,40 @@ namespace Negocio
                 dataBase.closeConn();
             }
         }
+
+        public List<ItemPedido> listarItems(int idPedido)
+        {
+            List<ItemPedido> listaItems = new List<ItemPedido>();
+            DataBase dataBase = new DataBase();
+            try
+            {
+                dataBase.setQuery("select IT.Id, IT.Cantidad, IT.IdPedido, IT.IdProducto, P.Nombre, P.Precio from ItemsPedido IT inner join Productos P on IT.IdProducto = P.Id where IT.IdPedido = " + idPedido);
+                dataBase.executeQuery();
+                while (dataBase.Reader.Read())
+                {
+                    ItemPedido aux = new ItemPedido();
+                    aux.Id = (int)dataBase.Reader["Id"];
+                    aux.Cantidad = (int)dataBase.Reader["Cantidad"];
+                    aux.IdPedido = (int)dataBase.Reader["IdPedido"];
+                    Producto auxP = new Producto()
+                    {
+                        Id = (int)dataBase.Reader["IdProducto"],
+                        Nombre = (string)dataBase.Reader["Nombre"],
+                        Precio = (decimal)dataBase.Reader["Precio"]
+                    };
+                    aux.Producto = auxP;
+                    listaItems.Add(aux);
+                }
+                return listaItems;
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }finally
+            {
+                dataBase.closeConn();
+            }
+        }
     }
 }
