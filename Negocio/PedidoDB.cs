@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Permissions;
 using System.Text;
 using System.Threading.Tasks;
 using Dominio;
@@ -37,5 +38,32 @@ namespace Negocio
                 dataBase.closeConn();
             }
         }     
+
+        public int crearPedido(int idMesa)
+        {
+            DataBase dataBase = new DataBase();
+            int idPedido = 0;
+            try
+            {
+                dataBase.setQuery("Insert into Pedidos (Fecha, Estado, Total, IdMesa) values (GetDate(), 1, 0, " + idMesa + ") Select Max(Id) from Pedidos");
+                dataBase.executeQuery();
+                if (dataBase.Reader.Read())
+                {
+                    idPedido = dataBase.Reader.GetInt32(0);
+                }
+                dataBase.closeConn();
+                dataBase.setQuery("Update Mesas set Estado = 1 where Numero = " + idMesa);
+                dataBase.executeNonQuery();
+                return idPedido;
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }finally
+            {
+                dataBase.closeConn();
+            }
+        }
     }
 }

@@ -41,14 +41,21 @@ namespace Visual
 
         protected void btnAgregarPedido_Click(object sender, EventArgs e)
         {
-            if (mesaSeleccionada.Estado)
+            if (!mesaSeleccionada.Estado)
             {
-                Response.Redirect("Carta.aspx?idPedido=" + mesaSeleccionada.IdPedido.ToString());
-            }else
-            {
-                //La mesa no esta abierta por lo que no tiene pedido, aqui crearle un pedido
-                //Y asiganrlo para poder pasarlo a la carta 
+                //La mesa no esta abierta por lo que no tiene pedido
+                PedidoDB pedidoDB = new PedidoDB();
+                //Se le crea un pedido
+                mesaSeleccionada.IdPedido = pedidoDB.crearPedido(mesaSeleccionada.Id);
+                mesaSeleccionada.Estado = true;
+                //Se actualiza la lista mesas de la sesion para agregarle el id pedido
+                List<Mesa> listaMesa = (List<Mesa>)Session["ListaMesas"];
+                int indexMesa = listaMesa.FindIndex(m => m.Id == mesaSeleccionada.Id);
+                listaMesa[indexMesa] = mesaSeleccionada;
+                Session["ListaMesas"] = listaMesa;
             }
+            //Se pasa el id pedido a la carta para poder agregar  items
+            Response.Redirect("Carta.aspx?idPedido=" + mesaSeleccionada.IdPedido.ToString());
         }
     }
 }
