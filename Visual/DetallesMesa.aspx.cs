@@ -13,6 +13,7 @@ namespace Visual
         Mesa mesaSeleccionada = new Mesa();
         protected void Page_Load(object sender, EventArgs e)
         {
+            alert.Visible = false;
             if (Request.QueryString["id"] == null)
             {
                 Response.Redirect("Default.aspx");
@@ -28,8 +29,15 @@ namespace Visual
                 {
                     PedidoDB pedidoDb = new PedidoDB();
                     mesaSeleccionada.Pedidos = pedidoDb.listarItems(mesaSeleccionada.IdPedido);
-                    dgvPedidos.DataSource = mesaSeleccionada.Pedidos;
-                    dgvPedidos.DataBind();
+                    if (mesaSeleccionada.Pedidos.Count() == 0)
+                    {
+                        alert.Visible = true;
+                    }
+                    else
+                    {
+                        dgvPedidos.DataSource = mesaSeleccionada.Pedidos;
+                        dgvPedidos.DataBind();
+                    }
                 }
                 else
                 {
