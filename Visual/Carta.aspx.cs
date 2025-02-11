@@ -41,6 +41,7 @@ namespace Visual
                 if (Request.QueryString["idPedido"] != null)
                 {
                     btn.Click += (sender, e) => Btn_click(sender, e, item.Id);
+                    btnRegresar.Visible = true;
                 }
                 btn.CssClass = "btn btn-warning margen";
                 carta.Controls.Add(btn);
@@ -100,6 +101,12 @@ namespace Visual
             ItemPedidoDB itemDB = new ItemPedidoDB();
             itemDB.crearItem(itemPedido);
             alert.Visible = true;
+        }
+
+        protected void btnRegresar_Click(object sender, EventArgs e)
+        {
+            string id = Request.QueryString["idMesa"];
+            Response.Redirect("DetallesMesa.aspx?id=" + id);
         }
     }
 }

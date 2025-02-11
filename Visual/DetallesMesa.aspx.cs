@@ -14,37 +14,46 @@ namespace Visual
         protected void Page_Load(object sender, EventArgs e)
         {
             alert.Visible = false;
+            //Si no viene el id de la mesa redirige al inicio
             if (Request.QueryString["id"] == null)
             {
                 Response.Redirect("Default.aspx");
+                return;
             }
-            else
+            // Buscar la mesa seleccionada por su ID
+            var id = Request.QueryString["id"];
+            List<Mesa> listaMesa = (List<Mesa>)Session["ListaMesas"];
+            mesaSeleccionada = listaMesa.FirstOrDefault(m => m.Id.ToString() == id);
+            if (mesaSeleccionada != null)
             {
-                var id = Request.QueryString["id"];
-                List<Mesa> listaMesa = (List<Mesa>)Session["ListaMesas"];
-
-                // Buscar la mesa seleccionada por su ID
-                mesaSeleccionada = listaMesa.FirstOrDefault(m => m.Id.ToString() == id);
-                if (mesaSeleccionada != null)
+                //Si la mesa esta abierta trae los productos 
+                if (mesaSeleccionada.Estado)
                 {
                     PedidoDB pedidoDb = new PedidoDB();
                     mesaSeleccionada.Pedidos = pedidoDb.listarItems(mesaSeleccionada.IdPedido);
+                    //Trae los productos del pedido y valida si hay productos agregados 
                     if (mesaSeleccionada.Pedidos.Count() == 0)
                     {
                         alert.Visible = true;
                     }
                     else
                     {
+                        //Asigna los valores a la tabla y labels
                         dgvPedidos.DataSource = mesaSeleccionada.Pedidos;
                         dgvPedidos.DataBind();
+                        lblCantidad.Text += contarProductos(mesaSeleccionada.Pedidos).ToString();
+                        lblTotal.Text += sumarTotal(mesaSeleccionada.Pedidos).ToString();
                     }
-                }
-                else
+                }else
                 {
-                    Response.Redirect("Default.aspx");
+                    alert.Visible = true;
+                    alert.InnerText = "Agrega productos para crear un pedido...";
                 }
             }
-
+            else //Si la mesa no existe o no esta asignada al usuario manda al inicio
+            {
+                Response.Redirect("Default.aspx");
+            }
         }
 
         protected void btnAgregarPedido_Click(object sender, EventArgs e)
@@ -63,7 +72,27 @@ namespace Visual
                 Session["ListaMesas"] = listaMesa;
             }
             //Se pasa el id pedido a la carta para poder agregar  items
-            Response.Redirect("Carta.aspx?idPedido=" + mesaSeleccionada.IdPedido.ToString());
+            Response.Redirect("Carta.aspx?idPedido=" + mesaSeleccionada.IdPedido.ToString() + "&idMesa=" + mesaSeleccionada.Id.ToString());
+        }
+
+        protected int contarProductos(ICollection<ItemPedido> lista)
+        {
+            int contador = 0;
+            foreach (var item in lista)
+            {
+                contador += item.Cantidad;
+            }
+            return contador;
+        }
+
+        protected decimal sumarTotal(ICollection<ItemPedido> lista)
+        {
+            decimal total = 0;
+            foreach (var item in lista)
+            {
+                total += item.Subtotal;
+            }
+            return total;
         }
     }
 }
