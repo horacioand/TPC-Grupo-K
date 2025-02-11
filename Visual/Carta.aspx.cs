@@ -14,6 +14,7 @@ namespace Visual
         List<Producto> productos = new List<Producto>();
         protected void Page_Load(object sender, EventArgs e)
         {
+            alert.Visible = false;
             if (!IsPostBack)
             {
                 ViewState["cantidad"] = 1;
@@ -87,15 +88,18 @@ namespace Visual
         protected void btnAgregar_Click(object sender, EventArgs e)
         {
             CantidadProductos.Visible = false;
+            //Se guarda la cantidad seleccionada
             int cantidad = int.Parse(lblCantidad.Text);
+            //Se busca el producto y se le asignan los datos al item pedido
             Producto producto = productos.Find(aux => aux.Nombre == lblProducto.Text);
             ItemPedido itemPedido = new ItemPedido();
             itemPedido.Cantidad = cantidad;
             itemPedido.Producto = producto;
             itemPedido.IdPedido = int.Parse(Request.QueryString["idPedido"]);
-            //Falta subirlo a la db
-
-
+            //Se sube a la DB
+            ItemPedidoDB itemDB = new ItemPedidoDB();
+            itemDB.crearItem(itemPedido);
+            alert.Visible = true;
         }
     }
 }

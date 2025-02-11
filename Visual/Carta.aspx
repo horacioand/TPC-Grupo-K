@@ -53,5 +53,8 @@
                 <asp:Button ID="btnCancelar" CssClass="btn btn-warning margen" OnClick="btnCancelar_Click" runat="server" Text="Cancelar" />
             </div>
         </div>
+        <div Id="alert" class="alert alert-success margen" role="alert" runat="server">
+            ¡Agregado correctamente!
+        </div>
     </div>
 </asp:Content>

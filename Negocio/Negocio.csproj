@@ -42,6 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataBase.cs" />
+    <Compile Include="ItemPedidoDB.cs" />
     <Compile Include="MesaDB.cs" />
     <Compile Include="PedidoDB.cs" />
     <Compile Include="ProductosDB.cs" />
