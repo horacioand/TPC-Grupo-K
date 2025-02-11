@@ -16,7 +16,9 @@ namespace Dominio
 
         // Relación: Una mesa puede tener varios pedidos
         public ICollection<Pedido> Pedidos { get; set; }
+
+        public Usuario Mesero { get; set; }
         // Relación: Una mesa puede estar asignada a varios usuarios
-        public ICollection<AsignacionMesa> AsignacionesMesas { get; set; }
+        //public ICollection<AsignacionMesa> AsignacionesMesas { get; set; }
     }
 }

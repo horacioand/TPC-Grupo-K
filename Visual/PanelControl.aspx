@@ -29,6 +29,6 @@
         </div>
     </div>
     <div class="d-grid gap-2 col-6 mx-auto">
-        <asp:Button ID="btnAsignarMesas" CssClass="btn btn-warning m-2" runat="server" Text="Asignar Mesas" />
+        <asp:Button ID="btnAsignarMesas" CssClass="btn btn-warning m-2" runat="server" Text="Asignar Mesas" OnClick="btnAsignarMesas_Click" />
     </div>
 </asp:Content>

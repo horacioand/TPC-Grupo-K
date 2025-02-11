@@ -9,6 +9,35 @@ namespace Negocio
 {
     public class MesaDB
     {
+        public List<Mesa> listar()
+        {
+            DataBase dataBase = new DataBase();
+            List<Mesa> mesas = new List<Mesa>();
+            try
+            {
+                string consulta = "SELECT M.Id IdMesa, M.Numero NumeroMesa, Capacidad, Estado, AM.IdUsuario, U.Nombre FROM Mesas M, AsignacionMesas AM, Usuarios U WHERE AM.IdMesa = M.Id AND AM.IdUsuario = U.Id\r\n";
+                dataBase.setQuery(consulta);
+                dataBase.executeQuery();
+                while(dataBase.Reader.Read())
+                {
+                    Mesa aux = new Mesa();
+                    aux.Id = (int)dataBase.Reader["IdMesa"];
+                    aux.Numero = (int)dataBase.Reader["NumeroMesa"];
+                    aux.Capacidad = (int)dataBase.Reader["Capacidad"];
+                    aux.Estado = (bool)dataBase.Reader["Estado"];
+                    aux.Mesero = new Usuario();
+                    aux.Mesero.Id = (int)dataBase.Reader["IdUsuario"];
+                    aux.Mesero.Nombre = (string)dataBase.Reader["Nombre"];
+                    mesas.Add(aux);
+                }
+                return mesas;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
         public List<Mesa> listaAsignada(int idUsuario)
         {
             DataBase dataBase = new DataBase();
