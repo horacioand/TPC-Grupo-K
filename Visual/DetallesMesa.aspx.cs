@@ -41,13 +41,18 @@ namespace Visual
                         //Asigna los valores a la tabla y labels
                         dgvPedidos.DataSource = mesaSeleccionada.Pedidos;
                         dgvPedidos.DataBind();
-                        lblCantidad.Text += contarProductos(mesaSeleccionada.Pedidos).ToString();
-                        lblTotal.Text += sumarTotal(mesaSeleccionada.Pedidos).ToString();
+                        if (!IsPostBack)
+                        {
+                            lblCantidad.Text += contarProductos(mesaSeleccionada.Pedidos).ToString();
+                            lblTotal.Text += sumarTotal(mesaSeleccionada.Pedidos).ToString();
+                        }
                     }
-                }else
+                }
+                else
                 {
                     alert.Visible = true;
                     alert.InnerText = "Agrega productos para crear un pedido...";
+                    CerrarMesa.Visible = false;
                 }
             }
             else //Si la mesa no existe o no esta asignada al usuario manda al inicio
@@ -77,6 +82,7 @@ namespace Visual
 
         protected int contarProductos(ICollection<ItemPedido> lista)
         {
+            //suma la cantidad de los productos
             int contador = 0;
             foreach (var item in lista)
             {
@@ -87,12 +93,41 @@ namespace Visual
 
         protected decimal sumarTotal(ICollection<ItemPedido> lista)
         {
+            //suma el total de los productos
             decimal total = 0;
             foreach (var item in lista)
             {
                 total += item.Subtotal;
             }
             return total;
+        }
+
+        protected void btnCerrarMesa_Click(object sender, EventArgs e)
+        {
+            Confirmar.Visible = true;
+        }
+
+        protected void btnCancelar_Click(object sender, EventArgs e)
+        {
+            Confirmar.Visible= false;
+            tbContraseña.Text = string.Empty;
+            incorrecta.Visible = false;
+        }
+
+        protected void btnAceptar_Click(object sender, EventArgs e)
+        {
+            Usuario usuario = (Usuario)Session["usuario"];
+            if (tbContraseña.Text != usuario.Contrasena)
+            {
+                incorrecta.Visible = true;
+                return;
+            }
+            //Cierra la mesa y el pedido 
+            PedidoDB pedidoDB = new PedidoDB();
+            pedidoDB.cerrarPedido(mesaSeleccionada.Id, sumarTotal(mesaSeleccionada.Pedidos));
+            MesaDB mesa = new MesaDB();
+            mesa.cerrarMesa(mesaSeleccionada.Id);
+            Response.Redirect("Default.aspx");
         }
     }
 }

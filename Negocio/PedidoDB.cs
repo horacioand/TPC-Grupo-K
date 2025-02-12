@@ -65,7 +65,6 @@ namespace Negocio
                 dataBase.closeConn();
             }
         }
-
         public List<ItemPedido> listarItems(int idPedido)
         {
             List<ItemPedido> listaItems = new List<ItemPedido>();
@@ -99,6 +98,18 @@ namespace Negocio
             {
                 dataBase.closeConn();
             }
+        }
+        public void cerrarPedido(int idPedido, decimal total)
+        {
+            DataBase dataBase = new DataBase();
+            try
+            {
+                dataBase.setQuery("Update Pedidos set Estado = 0, Total = " + total + " where IdMesa = " + idPedido);
+                dataBase.executeNonQuery();
+            }
+            catch (Exception ex)
+            { throw ex; }
+            finally { dataBase.closeConn();}
         }
     }
 }

@@ -69,7 +69,6 @@ namespace Negocio
                 dataBase.closeConn();
             }
         }
-
         public int traerIdPedido(int idmesa)
         {
             int id = 0;
@@ -94,6 +93,19 @@ namespace Negocio
             {
                 dataBase.closeConn();
             }
+        }
+        public void cerrarMesa(int id)
+        {
+            DataBase dataBase = new DataBase();
+            try
+            {
+                dataBase.setQuery("Update Mesas set Estado = 0 where Numero = " + id.ToString());
+                dataBase.executeNonQuery();
+            }
+            catch (Exception ex)
+            { throw ex; }
+            finally
+            { dataBase.closeConn(); }
         }
     }
 }
