@@ -6,6 +6,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using Negocio;
 using Dominio;
+using System.Web.Services.Description;
 namespace Visual
 {
     public partial class DetallesMesa : System.Web.UI.Page
@@ -104,11 +105,13 @@ namespace Visual
 
         protected void btnCerrarMesa_Click(object sender, EventArgs e)
         {
+            //Muestra la confirmacion de cerrar mesa
             Confirmar.Visible = true;
         }
 
         protected void btnCancelar_Click(object sender, EventArgs e)
         {
+            //oculta la confirmacion de cerrar mesa y deja el campo contraseña en blanco
             Confirmar.Visible= false;
             tbContraseña.Text = string.Empty;
             incorrecta.Visible = false;
@@ -117,8 +120,11 @@ namespace Visual
         protected void btnAceptar_Click(object sender, EventArgs e)
         {
             Usuario usuario = (Usuario)Session["usuario"];
+            //Se confirma que la contraseña sea correcta
             if (tbContraseña.Text != usuario.Contrasena)
             {
+                //Si es incorrecta muestra error y limpia el campo contraseña
+                tbContraseña.Text = string.Empty;
                 incorrecta.Visible = true;
                 return;
             }
@@ -128,6 +134,7 @@ namespace Visual
             MesaDB mesa = new MesaDB();
             mesa.cerrarMesa(mesaSeleccionada.Id);
             Response.Redirect("Default.aspx");
+            //Aqui se podria agregar el tema de imprimir el ticket...
         }
     }
 }
