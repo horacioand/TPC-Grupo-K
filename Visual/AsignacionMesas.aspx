@@ -47,9 +47,9 @@
     <div class="asignarDiv">
         <div class="itemsAsignar">
             <asp:Label ID="lblMesa" runat="server" CssClass="form-label" Text="Mesa: "></asp:Label>
-            <asp:DropDownList ID="ddlMesas" runat="server" CssClass=""></asp:DropDownList>
+            <asp:DropDownList ID="ddlMesas" runat="server" CssClass="btn btn-warning dropdown-toggle"></asp:DropDownList>
             <asp:Label ID="lblMesero" runat="server" CssClass="form-label" Text="Mesero: "></asp:Label>
-            <asp:DropDownList ID="ddlMeseros" runat="server" CssClass=""></asp:DropDownList>
+            <asp:DropDownList ID="ddlMeseros" runat="server" CssClass="btn btn-secondary dropdown-toggle"></asp:DropDownList>
             <asp:Button ID="btnAsignar" runat="server" Text="Asignar" OnClick="btnAsignar_Click" CssClass="btn btn-warning margen" />
         </div>
     </div>

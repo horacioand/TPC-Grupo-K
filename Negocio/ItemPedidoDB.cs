@@ -14,8 +14,15 @@ namespace Negocio
             DataBase dataBase = new DataBase();
             try
             {
-                dataBase.setQuery("Insert into ItemsPedido (Cantidad, PrecioUnitario, IdPedido, IdProducto ) values (" + itemPedido.Cantidad + ", " + itemPedido.Producto.Precio + ", " + itemPedido.IdPedido + ", " + itemPedido.Producto.Id + ")");
-                dataBase.executeNonQuery();
+                string query = "INSERT INTO ItemsPedido (Cantidad, PrecioUnitario, IdPedido, IdProducto) VALUES (@Cantidad, @PrecioUnitario, @IdPedido, @IdProducto)";
+
+                dataBase.setQuery(query);
+                dataBase.setParameter("@Cantidad", itemPedido.Cantidad);
+                dataBase.setParameter("@PrecioUnitario", itemPedido.Producto.Precio);
+                dataBase.setParameter("@IdPedido", itemPedido.IdPedido);
+                dataBase.setParameter("@IdProducto", itemPedido.Producto.Id);
+
+                dataBase.executeNonQuery(); 
             }
             catch (Exception ex)
             {
