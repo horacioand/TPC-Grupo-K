@@ -20,8 +20,7 @@ namespace Visual
                 Response.Redirect("Login.aspx");
                 return;
             }
-            MesaDB mesaDB = new MesaDB();
-            ListaMesas = mesaDB.listar();
+            listarMesas();
             if (!IsPostBack)
             {
                 //evitamos que los datos se reinicien 
@@ -29,6 +28,13 @@ namespace Visual
                 cargarMeseros();
             }
 
+        }
+
+        protected void listarMesas()
+        {
+            //Traemos la lista de mesas
+            MesaDB mesaDB = new MesaDB();
+            ListaMesas = mesaDB.listar();
         }
 
         protected void cargarMesas()
@@ -58,7 +64,7 @@ namespace Visual
             MesaDB mesaDB = new MesaDB();
             mesaDB.asignarMesa(numeroMesa, idMesero);
             //Recargamos la lista de mesas para ver los cambios 
-            ListaMesas = mesaDB.listar();
+            listarMesas();
         }
     }
 }
