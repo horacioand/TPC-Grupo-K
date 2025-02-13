@@ -16,12 +16,15 @@ namespace Visual
             Usuario user = (Usuario)Session["usuario"];
             if (user == null || !user.Rol)
             {
+                //Evitamos que entren mediante la url si el usuario no tiene el rol
                 Response.Redirect("Login.aspx");
+                return;
             }
             MesaDB mesaDB = new MesaDB();
             ListaMesas = mesaDB.listar();
             if (!IsPostBack)
             {
+                //evitamos que los datos se reinicien 
                 cargarMesas();
                 cargarMeseros();
             }
@@ -30,6 +33,7 @@ namespace Visual
 
         protected void cargarMesas()
         {
+            //carga las mesas en el drop down list
             ddlMesas.DataSource = ListaMesas;
             ddlMesas.DataTextField = "Numero";
             ddlMesas.DataValueField = "Numero";
@@ -38,10 +42,23 @@ namespace Visual
 
         protected void cargarMeseros()
         {
+            //carga los meseros en el drop down list
             ddlMeseros.DataSource = Session["listaUsuarios"];
             ddlMeseros.DataTextField= "Nombre";
             ddlMeseros.DataValueField = "Id";
             ddlMeseros.DataBind();
+        }
+
+        protected void btnAsignar_Click(object sender, EventArgs e)
+        {
+            //Guardamos los valores seleccionados de los drop down list
+            int numeroMesa = int.Parse(ddlMesas.SelectedValue);
+            int idMesero = int.Parse(ddlMeseros.SelectedValue);
+            //Lo mandamos a la base de datos 
+            MesaDB mesaDB = new MesaDB();
+            mesaDB.asignarMesa(numeroMesa, idMesero);
+            //Recargamos la lista de mesas para ver los cambios 
+            ListaMesas = mesaDB.listar();
         }
     }
 }

@@ -50,7 +50,7 @@
             <asp:DropDownList ID="ddlMesas" runat="server" CssClass=""></asp:DropDownList>
             <asp:Label ID="lblMesero" runat="server" CssClass="form-label" Text="Mesero: "></asp:Label>
             <asp:DropDownList ID="ddlMeseros" runat="server" CssClass=""></asp:DropDownList>
-            <asp:Button ID="btnAsignar" runat="server" Text="Asignar" CssClass="btn btn-warning margen" />
+            <asp:Button ID="btnAsignar" runat="server" Text="Asignar" OnClick="btnAsignar_Click" CssClass="btn btn-warning margen" />
         </div>
     </div>
 </asp:Content>
