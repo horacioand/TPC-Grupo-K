@@ -38,6 +38,23 @@ namespace Negocio
                 throw;
             }
         }
+        public void asignarMesa(int idMesa, int idUser)
+        {
+            DataBase dataBase = new DataBase();
+            try
+            {
+                dataBase.setQuery("Update AsignacionMesas set IdUsuario = " + idUser + " where IdMesa = " + idMesa);
+                dataBase.executeNonQuery();
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }finally
+            {
+                dataBase.closeConn();
+            }
+        }
         public List<Mesa> listaAsignada(int idUsuario)
         {
             DataBase dataBase = new DataBase();
