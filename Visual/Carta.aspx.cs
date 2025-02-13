@@ -37,13 +37,13 @@ namespace Visual
                 {
                     Text = item.Nombre,
                     ID = "btn" + item.Id.ToString(),
+                    CssClass = "btn btn-warning margen"
                 };
                 if (Request.QueryString["idPedido"] != null)
                 {
                     btn.Click += (sender, e) => Btn_click(sender, e, item.Id);
                     btnRegresar.Visible = true;
                 }
-                btn.CssClass = "btn btn-warning margen";
                 carta.Controls.Add(btn);
             }
         }
