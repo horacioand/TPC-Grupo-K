@@ -45,7 +45,7 @@ namespace Negocio
             int idPedido = 0;
             try
             {
-                dataBase.setQuery("Insert into Pedidos (Fecha, Estado, Total, IdMesa) values (GetDate(), 1, 0, " + idMesa + ") Select Max(Id) from Pedidos");
+                dataBase.setQuery("Insert into Pedidos (Fecha, Estado, Total, IdMesa, nroClientes) values (GetDate(), 1, 0, " + idMesa + ", 0) Select Max(Id) from Pedidos");
                 dataBase.executeQuery();
                 if (dataBase.Reader.Read())
                 {
