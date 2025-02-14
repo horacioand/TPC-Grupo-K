@@ -7,6 +7,7 @@ using System.Web.UI.WebControls;
 using Negocio;
 using Dominio;
 using System.Web.Services.Description;
+using System.Configuration;
 namespace Visual
 {
     public partial class DetallesMesa : System.Web.UI.Page
@@ -105,36 +106,41 @@ namespace Visual
 
         protected void btnCerrarMesa_Click(object sender, EventArgs e)
         {
-            //Muestra la confirmacion de cerrar mesa
-            Confirmar.Visible = true;
+            //Muestra la confirmacion de contraseña
+            confirmarContraseña();
         }
 
         protected void btnCancelar_Click(object sender, EventArgs e)
         {
-            //oculta la confirmacion de cerrar mesa y deja el campo contraseña en blanco
+            //oculta la confirmacion de contraseña y deja el campo contraseña en blanco
             Confirmar.Visible= false;
             tbContraseña.Text = string.Empty;
-            incorrecta.Visible = false;
+            info.Visible = false;
         }
 
         protected void btnAceptar_Click(object sender, EventArgs e)
         {
-            Usuario usuario = (Usuario)Session["usuario"];
-            //Se confirma que la contraseña sea correcta
-            if (tbContraseña.Text != usuario.Contrasena)
+            if (!validarContraseña())
             {
-                //Si es incorrecta muestra error y limpia el campo contraseña
-                tbContraseña.Text = string.Empty;
-                incorrecta.Visible = true;
                 return;
             }
-            //Cierra la mesa y el pedido 
-            PedidoDB pedidoDB = new PedidoDB();
-            pedidoDB.cerrarPedido(mesaSeleccionada.Id, sumarTotal(mesaSeleccionada.Pedidos));
-            MesaDB mesa = new MesaDB();
-            mesa.cerrarMesa(mesaSeleccionada.Id);
-            Response.Redirect("Default.aspx");
-            //Aqui se podria agregar el tema de imprimir el ticket...
+            if (lblProducto.Text == string.Empty)
+            {
+                /*Si esta vacio el campo del nombre del producto es que venimos del 
+                 * control de cerrar mesa y se ejecuta el codigo para cerrar mesa y el pedido*/
+                PedidoDB pedidoDB = new PedidoDB();
+                pedidoDB.cerrarPedido(mesaSeleccionada.Id, sumarTotal(mesaSeleccionada.Pedidos));
+                MesaDB mesa = new MesaDB();
+                mesa.cerrarMesa(mesaSeleccionada.Id);
+                Response.Redirect("Default.aspx");
+                //Aqui se podria agregar el tema de imprimir el ticket...
+            }else
+            {
+                // Si no esta vacio viene del control eliminar producto 
+
+            }
+
+
         }
 
         protected void dgvPedidos_RowCommand(object sender, GridViewCommandEventArgs e)
@@ -143,14 +149,55 @@ namespace Visual
             {
                 int index = Convert.ToInt32(e.CommandArgument);  // Obtiene el índice del registro actual             
                 GridViewRow row = dgvPedidos.Rows[index]; // Obtiene la fila del GridView
+                string Nombre = row.Cells[1].Text; //Obtenemos el nombre del producto
+                confirmarContraseña(Nombre);
+                return;
+
                 int idItemPedido = int.Parse(row.Cells[0].Text); //Obtiene el id del item pedido 
                 //Lo borramos de la db
                 ItemPedidoDB itemPedido = new ItemPedidoDB();
                 itemPedido.borrarItem(idItemPedido);
                 //Recargamos la pagina para que muestre los cambios
-                Response.Redirect("DetallesMesa.aspx?id=" + mesaSeleccionada.Id.ToString()); 
+                Response.Redirect("DetallesMesa.aspx?id=" + mesaSeleccionada.Id.ToString());
             }
         }
 
+        protected void confirmarContraseña()
+        {
+            //muestra el campo para ingresar la contraseña 
+            Confirmar.Visible = true;
+            lblProducto.Text = string.Empty;
+            lblConfirmar.Text = "Ingrese su contraseña para cerrar la mesa";
+            info.Visible = false;
+        }
+
+        protected void confirmarContraseña(string nombre)
+        {
+            //muestra el campo para ingresar la contraseña 
+            Confirmar.Visible = true;
+            lblProducto.Text = nombre;
+            lblConfirmar.Text = "Ingrese su contraseña para eliminar el producto";
+            info.Visible = false;
+        }
+
+        protected bool validarContraseña()
+        {
+            //Se confirma que la contraseña sea correcta
+            Usuario usuario = (Usuario)Session["usuario"];
+            if (tbContraseña.Text != usuario.Contrasena)
+            {
+                //Si es incorrecta muestra error y limpia el campo contraseña
+                tbContraseña.Text = string.Empty;
+                info.Visible = true;
+                info.InnerText = "¡Contraseña incorrecta!";
+                return false;
+            }
+            else
+            {
+                //la contraseña es correcta y limpia el campo contraseña
+                tbContraseña.Text = string.Empty;
+                return true;
+            }
+        }
     }
 }
