@@ -25,7 +25,7 @@
                 <asp:BoundField DataField="Producto.Precio" HeaderText="Precio" />
                 <asp:BoundField DataField="Cantidad" HeaderText="Cantidad" />
                 <asp:BoundField DataField="Subtotal" HeaderText="Subtotal" />
-                <asp:ButtonField Text="Eliminar" CommandName="Accion"/>
+                <asp:ButtonField Text="Eliminar" CommandName="Accion" ControlStyle-ForeColor="Red"/>
             </Columns>
         </asp:GridView>
         <div id="alert" class="alert alert-danger contenedor" role="alert" runat="server">

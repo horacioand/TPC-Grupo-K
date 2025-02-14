@@ -144,7 +144,11 @@ namespace Visual
                 int index = Convert.ToInt32(e.CommandArgument);  // Obtiene el índice del registro actual             
                 GridViewRow row = dgvPedidos.Rows[index]; // Obtiene la fila del GridView
                 int idItemPedido = int.Parse(row.Cells[0].Text); //Obtiene el id del item pedido 
-
+                //Lo borramos de la db
+                ItemPedidoDB itemPedido = new ItemPedidoDB();
+                itemPedido.borrarItem(idItemPedido);
+                //Recargamos la pagina para que muestre los cambios
+                Response.Redirect("DetallesMesa.aspx?id=" + mesaSeleccionada.Id.ToString()); 
             }
         }
 
