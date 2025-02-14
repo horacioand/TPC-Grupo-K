@@ -32,5 +32,24 @@ namespace Negocio
                 dataBase.closeConn();
             }
         }
+
+        public void borrarItem(int Id)
+        {
+            DataBase dataBase = new DataBase();
+            try
+            {
+                dataBase.setQuery("Delete ItemsPedido where Id = " + Id.ToString());
+                dataBase.executeNonQuery();
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                dataBase.closeConn();
+            }
+        }
     }
 }

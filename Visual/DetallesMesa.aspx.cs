@@ -136,5 +136,17 @@ namespace Visual
             Response.Redirect("Default.aspx");
             //Aqui se podria agregar el tema de imprimir el ticket...
         }
+
+        protected void dgvPedidos_RowCommand(object sender, GridViewCommandEventArgs e)
+        {
+            if (e.CommandName == "Accion")
+            {
+                int index = Convert.ToInt32(e.CommandArgument);  // Obtiene el índice del registro actual             
+                GridViewRow row = dgvPedidos.Rows[index]; // Obtiene la fila del GridView
+                int idItemPedido = int.Parse(row.Cells[0].Text); //Obtiene el id del item pedido 
+
+            }
+        }
+
     }
 }

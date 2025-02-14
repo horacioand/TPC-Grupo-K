@@ -18,12 +18,14 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MasterSite" runat="server">
     <div class="contenedor margen">
-        <asp:GridView runat="server" ID="dgvPedidos" CssClass="table table-striped" AutoGenerateColumns="False">
+        <asp:GridView runat="server" ID="dgvPedidos" CssClass="table table-striped" AutoGenerateColumns="False" OnRowCommand="dgvPedidos_RowCommand">
             <Columns>
+                <asp:BoundField DataField="Id" HeaderText="Id" HeaderStyle-CssClass="visually-hidden" ItemStyle-CssClass="visually-hidden"/>
                 <asp:BoundField DataField="Producto.Nombre" HeaderText="Nombre" />
                 <asp:BoundField DataField="Producto.Precio" HeaderText="Precio" />
                 <asp:BoundField DataField="Cantidad" HeaderText="Cantidad" />
                 <asp:BoundField DataField="Subtotal" HeaderText="Subtotal" />
+                <asp:ButtonField Text="Eliminar" CommandName="Accion"/>
             </Columns>
         </asp:GridView>
         <div id="alert" class="alert alert-danger contenedor" role="alert" runat="server">
