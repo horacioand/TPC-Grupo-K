@@ -87,6 +87,7 @@
     <Content Include="DetallesMesa.aspx" />
     <Content Include="estilos.css" />
     <Content Include="Global.asax" />
+    <Content Include="InformesVentas.aspx" />
     <Content Include="Login.aspx" />
     <Content Include="PanelControl.aspx" />
     <Content Include="Scripts\bootstrap.bundle.js" />
@@ -135,6 +136,13 @@
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="InformesVentas.aspx.cs">
+      <DependentUpon>InformesVentas.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="InformesVentas.aspx.designer.cs">
+      <DependentUpon>InformesVentas.aspx</DependentUpon>
     </Compile>
     <Compile Include="Login.aspx.cs">
       <DependentUpon>Login.aspx</DependentUpon>

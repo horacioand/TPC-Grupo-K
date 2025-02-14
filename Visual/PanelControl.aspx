@@ -24,7 +24,7 @@
         <div class="card text-center mb-3 margen bg-dark" style="width: 18rem;">
             <div class="card-body divpanelcontrol">
                 <h5 class="card-title text-light">Informes</h5>
-                <asp:Button ID="btnVentas" CssClass="btn btn-warning m-2" runat="server" Text="Ventas" />
+                <asp:Button ID="btnVentas" OnClick="btnVentas_Click" CssClass="btn btn-warning m-2" runat="server" Text="Ventas" />
             </div>
         </div>
     </div>

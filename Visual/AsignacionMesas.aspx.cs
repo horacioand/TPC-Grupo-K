@@ -13,13 +13,7 @@ namespace Visual
         public List<Mesa> ListaMesas { get; set; }
         protected void Page_Load(object sender, EventArgs e)
         {
-            Usuario user = (Usuario)Session["usuario"];
-            if (user == null || !user.Rol)
-            {
-                //Evitamos que entren mediante la url si el usuario no tiene el rol
-                Response.Redirect("Login.aspx");
-                return;
-            }
+            ValidarRol();
             listarMesas();
             if (!IsPostBack)
             {
@@ -28,6 +22,20 @@ namespace Visual
                 cargarMeseros();
             }
 
+        }
+
+        public bool ValidarRol()
+        {
+            bool validacion = true;
+            Usuario user = (Usuario)Session["usuario"];
+            if (user == null || !user.Rol)
+            {
+                // Evitamos que entren mediante la URL si el usuario no tiene el rol
+                Response.Redirect("Login.aspx");
+                Response.End(); // Detenemos la ejecución del código
+                validacion = false;
+            }
+            return validacion;
         }
 
         protected void listarMesas()
