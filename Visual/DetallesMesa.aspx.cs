@@ -126,7 +126,7 @@ namespace Visual
             }
             if (lblProducto.Text == string.Empty)
             {
-                /*Si esta vacio el campo del nombre del producto es que venimos del 
+                /*Si viene vacio no hay ningun item producto entonces venimos del 
                  * control de cerrar mesa y se ejecuta el codigo para cerrar mesa y el pedido*/
                 PedidoDB pedidoDB = new PedidoDB();
                 pedidoDB.cerrarPedido(mesaSeleccionada.Id, sumarTotal(mesaSeleccionada.Pedidos));
@@ -136,11 +136,12 @@ namespace Visual
                 //Aqui se podria agregar el tema de imprimir el ticket...
             }else
             {
-                // Si no esta vacio viene del control eliminar producto 
-
+                // Si no es igual viene del control eliminar producto 
+                ItemPedidoDB itemPedido = new ItemPedidoDB();
+                itemPedido.borrarItem((int)ViewState["itemproducto"]);
+                //Recargamos la pagina para que muestre los cambios
+                Response.Redirect("DetallesMesa.aspx?id=" + mesaSeleccionada.Id.ToString());
             }
-
-
         }
 
         protected void dgvPedidos_RowCommand(object sender, GridViewCommandEventArgs e)
@@ -150,15 +151,8 @@ namespace Visual
                 int index = Convert.ToInt32(e.CommandArgument);  // Obtiene el índice del registro actual             
                 GridViewRow row = dgvPedidos.Rows[index]; // Obtiene la fila del GridView
                 string Nombre = row.Cells[1].Text; //Obtenemos el nombre del producto
+                ViewState["itemproducto"] = int.Parse(row.Cells[0].Text); //Obtenemos el id de item pedido y lo guardamos 
                 confirmarContraseña(Nombre);
-                return;
-
-                int idItemPedido = int.Parse(row.Cells[0].Text); //Obtiene el id del item pedido 
-                //Lo borramos de la db
-                ItemPedidoDB itemPedido = new ItemPedidoDB();
-                itemPedido.borrarItem(idItemPedido);
-                //Recargamos la pagina para que muestre los cambios
-                Response.Redirect("DetallesMesa.aspx?id=" + mesaSeleccionada.Id.ToString());
             }
         }
 
