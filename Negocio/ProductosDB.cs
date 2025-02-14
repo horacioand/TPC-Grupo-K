@@ -15,7 +15,7 @@ namespace Negocio
             DataBase db = new DataBase();
             try
             {
-                db.setQuery("select Id, Nombre, Precio, Stock, UrlImagen from Productos");
+                db.setQuery("select Id, Nombre, Precio, UrlImagen from Productos");
                 db.executeQuery();
                 while (db.Reader.Read())
                 {
