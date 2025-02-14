@@ -56,7 +56,8 @@ CREATE TABLE Pedidos (
     Fecha DATETIME NOT NULL DEFAULT GETDATE(),
     Estado BIT NOT NULL,
     Total MONEY NOT NULL DEFAULT 0,
-    IdMesa INT NOT NULL FOREIGN KEY REFERENCES Mesas(Id)
+    IdMesa INT NOT NULL FOREIGN KEY REFERENCES Mesas(Id),
+	nroClientes INT NOT NULL
 );
 
 -- Tabla ItemsPedido
