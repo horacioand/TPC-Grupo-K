@@ -66,6 +66,7 @@
   <ItemGroup>
     <Content Include="AsignacionMesas.aspx" />
     <Content Include="Carta.aspx" />
+    <Content Include="CartaPublico.aspx" />
     <Content Include="Content\bootstrap-grid.css" />
     <Content Include="Content\bootstrap-grid.min.css" />
     <Content Include="Content\bootstrap-grid.rtl.css" />
@@ -110,6 +111,13 @@
     </Compile>
     <Compile Include="Carta.aspx.designer.cs">
       <DependentUpon>Carta.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CartaPublico.aspx.cs">
+      <DependentUpon>CartaPublico.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CartaPublico.aspx.designer.cs">
+      <DependentUpon>CartaPublico.aspx</DependentUpon>
     </Compile>
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
