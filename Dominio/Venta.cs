@@ -15,6 +15,6 @@ namespace Dominio
         public int PlatillosConsumidos { get; set; }
         public int Personas {  get; set; }
         public int NumMesa { get; set; }
-        // Relación: Una venta está asociada a un mesero (usuario)
+        public DateTime Fecha { get; set; } 
     }
 }

@@ -26,6 +26,7 @@
                             <asp:BoundField DataField="IdPedido" HeaderText="Pedido" HeaderStyle-CssClass="visually-hidden" ItemStyle-CssClass="visually-hidden"/>
                             <asp:BoundField DataField="TotalCuenta" HeaderText="Total"/>
                             <asp:BoundField DataField="PlatillosConsumidos" HeaderText="Cantidad de platillos"/>
+                            <asp:BoundField DataField="Fecha" HeaderText="Fecha" DataFormatString="{0:yyyy-MM-dd}"/>
                             <asp:ButtonField Text="🔍" CommandName="Ver"/>
                         </Columns>
                     </asp:GridView>

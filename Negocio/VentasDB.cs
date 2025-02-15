@@ -35,7 +35,7 @@ namespace Negocio
             DataBase dataBase = new DataBase();
             try
             {
-                dataBase.setQuery("Select V.Id, V.IdMesero, U.Nombre Mesero, V.IdPedido, V.TotalCuenta Total, V.PlatillosConsumidos Platillos, P.nroClientes Personas, M.Numero Mesa from Ventas V inner join Usuarios U on V.IdMesero = U.Id inner join Pedidos P on V.IdPedido = P.Id INNER JOIN Mesas M on P.IdMesa = M.Id where CONVERT(DATE, V.Fecha) = '" + date.Date.ToString("yyyy-MM-dd") + "'");
+                dataBase.setQuery("Select V.Id, V.IdMesero, U.Nombre Mesero, V.IdPedido, CONVERT(DATE, P.Fecha) as Fecha, V.TotalCuenta Total, V.PlatillosConsumidos Platillos, P.nroClientes Personas, M.Numero Mesa from Ventas V inner join Usuarios U on V.IdMesero = U.Id inner join Pedidos P on V.IdPedido = P.Id INNER JOIN Mesas M on P.IdMesa = M.Id\r\n");
                 dataBase.executeQuery();
                 while (dataBase.Reader.Read())
                 {
@@ -46,7 +46,8 @@ namespace Negocio
                         TotalCuenta = (decimal)dataBase.Reader["Total"],
                         PlatillosConsumidos = (int)dataBase.Reader["Platillos"],
                         Personas = (int)dataBase.Reader["Personas"],
-                        NumMesa = (int)dataBase.Reader["Mesa"]
+                        NumMesa = (int)dataBase.Reader["Mesa"],
+                        Fecha = (DateTime)dataBase.Reader["Fecha"]                        
                     };
                     Usuario usuario = new Usuario()
                     {
