@@ -62,5 +62,12 @@ namespace Visual
             DateTime dateSelect = Calendar1.SelectedDate;
             busquedaDia(dateSelect.ToString("yyyy-MM-dd"));
         }
+
+        protected void btnLimpiar_Click(object sender, EventArgs e)
+        {
+            gdwVentas.DataSource = list;
+            gdwVentas.DataBind();
+            info.Visible = false;
+        }
     }
 }

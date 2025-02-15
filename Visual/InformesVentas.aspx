@@ -21,7 +21,7 @@
     <div class="centrar margin">
         <asp:Calendar ID="Calendar1" runat="server" OnSelectionChanged="Calendar1_SelectionChanged" BackColor="White"></asp:Calendar>
         <div class="margin">
-            <asp:Button ID="Button2" CssClass="btn btn-warning margin" runat="server" Text="Limpiar filtro" />
+            <asp:Button ID="btnLimpiar" CssClass="btn btn-warning margin" runat="server" Text="Limpiar filtro" OnClick="btnLimpiar_Click" />
         </div>
     </div>
     <div class="accordion accordion-flush margin" id="accordionFlushExample">
