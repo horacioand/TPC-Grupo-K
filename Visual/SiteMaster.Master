@@ -25,7 +25,7 @@
                 <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                     <div class="navbar-nav">
                         <a class="nav-link active text-warning" aria-current="page" href="Default.aspx">Inicio</a>
-                        <a class="nav-link active text-warning" href="Carta.aspx">Carta</a>
+                        <a class="nav-link active text-warning" href="CartaPublico.aspx">Carta</a>
                         <a class="nav-link active text-warning" href="Login.aspx" runat="server" id="btnIngresar">Ingresar</a>
                         <asp:Button ID="btnPanelControl" OnClick="btnPanelControl_Click" CssClass="btn btn-warning" runat="server" Text="Panel de Control" />
                     </div>
