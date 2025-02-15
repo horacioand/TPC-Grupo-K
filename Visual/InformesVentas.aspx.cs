@@ -1,4 +1,5 @@
 ﻿using Dominio;
+using Negocio;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +14,8 @@ namespace Visual
         protected void Page_Load(object sender, EventArgs e)
         {
             ValidarRol();
+            VentasDB ventasDB = new VentasDB();
+            List<Venta> list = ventasDB.listarVentas(DateTime.Now);
         }
 
         public bool ValidarRol()
