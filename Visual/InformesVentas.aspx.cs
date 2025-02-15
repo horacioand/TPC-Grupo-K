@@ -11,11 +11,14 @@ namespace Visual
 {
     public partial class InformesVentas : System.Web.UI.Page
     {
+        List<Venta> list = new List<Venta>();
         protected void Page_Load(object sender, EventArgs e)
         {
             ValidarRol();
+            //Traemos todas las ventas
             VentasDB ventasDB = new VentasDB();
-            gdwVentas.DataSource = ventasDB.listarVentas(DateTime.Now);
+            list = ventasDB.listarVentas(DateTime.Now);
+            gdwVentas.DataSource = list;
             gdwVentas.DataBind();
         }
 
@@ -35,7 +38,16 @@ namespace Visual
 
         protected void gdwVentas_RowCommand(object sender, GridViewCommandEventArgs e)
         {
+            
+        }
 
+        protected void busquedaDia(string fecha )
+        {
+            //Se busca en el array de todas las ventas 
+            List<Venta> result = list.FindAll(a => a.Fecha.Date.ToString("yyyy-MM-dd") == fecha);
+            gdwVentas.DataSource= result;
+            gdwVentas.DataBind();
+            return;
         }
     }
 }

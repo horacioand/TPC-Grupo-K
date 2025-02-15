@@ -2,12 +2,26 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <style>
-        .margin{
+        .margin {
             margin: 25px;
+        }
+        .centrar{
+            display:flex;
+            justify-content:center;
+        }
+        .direction{
+            flex-direction:column;
         }
     </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MasterSite" runat="server">
+    <div class="centrar margin">
+        <asp:Calendar ID="Calendar1" runat="server" BackColor="White"></asp:Calendar>
+        <div class="centrar margin direction">
+            <asp:Button ID="Button1" CssClass="btn btn-warning margin" runat="server" Text="Buscar" />
+            <asp:Button ID="Button2" CssClass="btn btn-warning margin" runat="server" Text="Limpiar filtro" />
+        </div>
+    </div>
     <div class="accordion accordion-flush margin" id="accordionFlushExample">
         <div class="accordion-item">
             <h2 class="accordion-header">
@@ -15,19 +29,19 @@
                     Ventas
                 </button>
             </h2>
-            <div id="flush-collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample" >
+            <div id="flush-collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
                 <div class="accordion-body">
                     <asp:GridView ID="gdwVentas" CssClass="table table-striped" runat="server" AutoGenerateColumns="false" OnRowCommand="gdwVentas_RowCommand">
                         <Columns>
                             <asp:BoundField DataField="Id" HeaderText="Id" HeaderStyle-CssClass="visually-hidden" ItemStyle-CssClass="visually-hidden" />
-                            <asp:BoundField DataField="Mesero.Nombre" HeaderText="Mesero"/>
-                            <asp:BoundField DataField="NumMesa" HeaderText="Mesa"/>
-                            <asp:BoundField DataField="Personas" HeaderText="Personas"/>
-                            <asp:BoundField DataField="IdPedido" HeaderText="Pedido" HeaderStyle-CssClass="visually-hidden" ItemStyle-CssClass="visually-hidden"/>
-                            <asp:BoundField DataField="TotalCuenta" HeaderText="Total"/>
-                            <asp:BoundField DataField="PlatillosConsumidos" HeaderText="Cantidad de platillos"/>
-                            <asp:BoundField DataField="Fecha" HeaderText="Fecha" DataFormatString="{0:yyyy-MM-dd}"/>
-                            <asp:ButtonField Text="🔍" CommandName="Ver"/>
+                            <asp:BoundField DataField="Mesero.Nombre" HeaderText="Mesero" />
+                            <asp:BoundField DataField="NumMesa" HeaderText="Mesa" />
+                            <asp:BoundField DataField="Personas" HeaderText="Personas" />
+                            <asp:BoundField DataField="IdPedido" HeaderText="Pedido" HeaderStyle-CssClass="visually-hidden" ItemStyle-CssClass="visually-hidden" />
+                            <asp:BoundField DataField="TotalCuenta" HeaderText="Total" />
+                            <asp:BoundField DataField="PlatillosConsumidos" HeaderText="Cantidad de platillos" />
+                            <asp:BoundField DataField="Fecha" HeaderText="Fecha" DataFormatString="{0:yyyy-MM-dd}" />
+                            <asp:ButtonField Text="🔍" CommandName="Ver" />
                         </Columns>
                     </asp:GridView>
                 </div>
