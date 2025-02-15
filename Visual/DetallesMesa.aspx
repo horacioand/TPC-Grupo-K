@@ -15,6 +15,30 @@
             align-items: center;
             color: #ffc107;
         }
+
+        .cantidadPersonas {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 15px;
+            width: 350px;
+            color: #ffc107;
+            justify-content: center;
+            background-color: #212529;
+            border-radius: 8px;
+            border: 1px solid white;
+        }
+
+        .centrar {
+            display: flex;
+            justify-content: center;
+        }
+
+        .contador {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
     </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MasterSite" runat="server">
@@ -29,11 +53,28 @@
                 <asp:ButtonField Text="❌" CommandName="Accion" ControlStyle-ForeColor="Red" />
             </Columns>
         </asp:GridView>
+        <div class="centrar" id="contadorDiv" runat="server" visible="false">
+            <div runat="server" id="CantidadPersonas" class="cantidadPersonas">
+                <asp:Label ID="Label1" runat="server" CssClass="h5 margen" Text="Numero de mesa"></asp:Label>
+                <div class="contador">
+                    <asp:Label ID="lblNumeroMesa" CssClass="form-label" runat="server" Text="Cantidad de personas:"></asp:Label>
+                    <div>
+                        <asp:Button ID="btnMenos" CssClass="btn btn-warning" runat="server" Text="-" />
+                        <asp:Label ID="Label2" runat="server" Text="1"></asp:Label>
+                        <asp:Button ID="btnMas" CssClass="btn btn-warning" runat="server" Text="+" />
+                    </div>
+                </div>
+                <div>
+                    <asp:Button ID="btnAgregar" CssClass="btn btn-warning margen" runat="server" Text="Abrir" />
+                    <asp:Button ID="Button1" CssClass="btn btn-warning margen" OnClick="btnCancelar_Click" runat="server" Text="Cancelar" />
+                </div>
+            </div>
+        </div>
         <div id="alert" class="alert alert-danger contenedor" role="alert" runat="server">
             Aun no hay ningun producto agregado...
         </div>
     </div>
-    <div class="contenedor2">
+    <div class="contenedor2" runat="server" id="contador2">
         <asp:Label ID="lblCantidad" runat="server" Text="Cantidad productos: "></asp:Label>
         <asp:Label ID="lblTotal" runat="server" Text="Total: "></asp:Label>
     </div>

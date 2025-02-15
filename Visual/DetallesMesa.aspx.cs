@@ -52,9 +52,15 @@ namespace Visual
                 }
                 else
                 {
+                    contadorDiv.Visible = true;
+                    contador2.Visible = false;
+                    btnAgregarPedido.Visible = false;
+                    btnCerrarMesa.Visible = false;
+                    /*
                     alert.Visible = true;
                     alert.InnerText = "Agrega productos para crear un pedido...";
                     CerrarMesa.Visible = false;
+                    */
                 }
             }
             else //Si la mesa no existe o no esta asignada al usuario manda al inicio
