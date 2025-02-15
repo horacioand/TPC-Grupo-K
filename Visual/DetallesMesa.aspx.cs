@@ -120,10 +120,16 @@ namespace Visual
 
         protected void btnAceptar_Click(object sender, EventArgs e)
         {
-            if (!validarContraseña())
+            //Validamos la contraseña
+            Usuario usuario = (Usuario)Session["usuario"];
+            if (tbContraseña.Text != usuario.Contrasena)
             {
+                tbContraseña.Text = string.Empty;
+                info.Visible = true;
+                info.InnerText = "¡Contraseña incorrecta!";
                 return;
             }
+            tbContraseña.Text = string.Empty;
             if (lblProducto.Text == string.Empty)
             {
                 /*Si viene vacio no hay ningun item producto entonces venimos del 
@@ -172,26 +178,6 @@ namespace Visual
             lblProducto.Text = nombre;
             lblConfirmar.Text = "Ingrese su contraseña para eliminar el producto";
             info.Visible = false;
-        }
-
-        protected bool validarContraseña()
-        {
-            //Se confirma que la contraseña sea correcta
-            Usuario usuario = (Usuario)Session["usuario"];
-            if (tbContraseña.Text != usuario.Contrasena)
-            {
-                //Si es incorrecta muestra error y limpia el campo contraseña
-                tbContraseña.Text = string.Empty;
-                info.Visible = true;
-                info.InnerText = "¡Contraseña incorrecta!";
-                return false;
-            }
-            else
-            {
-                //la contraseña es correcta y limpia el campo contraseña
-                tbContraseña.Text = string.Empty;
-                return true;
-            }
         }
     }
 }
