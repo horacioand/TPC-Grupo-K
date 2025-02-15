@@ -11,15 +11,26 @@
             justify-content: center;
             align-items: center;
         }
-
+        .direction{
+            flex-direction: column;
+        }
         .titulo {
             padding-top: 10px;
         }
     </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MasterSite" runat="server">
-    <div class="centrar margin">
-        <asp:Calendar ID="Calendar1" runat="server" OnSelectionChanged="Calendar1_SelectionChanged" BackColor="White"></asp:Calendar>
+    <div class="centrar direction margin">
+        <div class="centrar">
+            <asp:Calendar ID="Calendar1" runat="server" OnSelectionChanged="Calendar1_SelectionChanged" BackColor="White"></asp:Calendar>
+            <asp:GridView runat="server" ID="dgvItems" CssClass="table table-striped margin" AutoGenerateColumns="False">
+                <Columns>
+                    <asp:BoundField DataField="Cantidad" HeaderText="Cantidad" />
+                    <asp:BoundField DataField="Producto.Nombre" HeaderText="Nombre" />
+                    <asp:BoundField DataField="Producto.Precio" HeaderText="Precio" />
+                </Columns>
+            </asp:GridView>
+        </div>
         <div class="margin">
             <asp:Button ID="btnLimpiar" CssClass="btn btn-warning margin" runat="server" Text="Limpiar filtro" OnClick="btnLimpiar_Click" />
         </div>

@@ -14,12 +14,15 @@ namespace Visual
         List<Venta> list = new List<Venta>();
         protected void Page_Load(object sender, EventArgs e)
         {
-            ValidarRol();
             //Traemos todas las ventas
             VentasDB ventasDB = new VentasDB();
             list = ventasDB.listarVentas(DateTime.Now);
-            gdwVentas.DataSource = list;
-            gdwVentas.DataBind();
+            if (!IsPostBack)
+            {
+                ValidarRol();
+                gdwVentas.DataSource = list;
+                gdwVentas.DataBind();
+            }
         }
 
         public bool ValidarRol()
@@ -38,7 +41,17 @@ namespace Visual
 
         protected void gdwVentas_RowCommand(object sender, GridViewCommandEventArgs e)
         {
-
+            if (e.CommandName == "Ver")
+            {
+                int index = Convert.ToInt32(e.CommandArgument);
+                GridViewRow row = gdwVentas.Rows[index];
+                string idPedido = row.Cells[4].Text;
+                PedidoDB PedidoDB = new PedidoDB();
+                List<ItemPedido> items = PedidoDB.listarItems(int.Parse(idPedido));
+                dgvItems.DataSource = items;
+                dgvItems.DataBind();
+                dgvItems.Visible = true;
+            }
         }
 
         protected void busquedaDia(string fecha)
@@ -47,12 +60,14 @@ namespace Visual
             List<Venta> result = list.FindAll(a => a.Fecha.Date.ToString("yyyy-MM-dd") == fecha);
             gdwVentas.DataSource= result;
             gdwVentas.DataBind();
+            dgvItems.Visible = false;
             if (result.Count == 0)
             {
                 info.Visible = true;
-            }else
+            }
+            else
             {
-                info.Visible = false;   
+                info.Visible = false;
             }
             return;
         }
@@ -65,6 +80,7 @@ namespace Visual
 
         protected void btnLimpiar_Click(object sender, EventArgs e)
         {
+            dgvItems.Visible = false;
             gdwVentas.DataSource = list;
             gdwVentas.DataBind();
             info.Visible = false;
