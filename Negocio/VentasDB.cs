@@ -35,7 +35,7 @@ namespace Negocio
             DataBase dataBase = new DataBase();
             try
             {
-                dataBase.setQuery("Select V.Id, V.IdMesero, U.Nombre Mesero, V.IdPedido, CONVERT(DATE, P.Fecha) as Fecha, V.TotalCuenta Total, V.PlatillosConsumidos Platillos, P.nroClientes Personas, M.Numero Mesa from Ventas V inner join Usuarios U on V.IdMesero = U.Id inner join Pedidos P on V.IdPedido = P.Id INNER JOIN Mesas M on P.IdMesa = M.Id\r\n");
+                dataBase.setQuery("Select V.Id, V.IdMesero, U.Nombre Mesero, V.IdPedido, CONVERT(DATE, P.Fecha) as Fecha, V.TotalCuenta Total, V.PlatillosConsumidos Platillos, P.nroClientes Personas, M.Numero Mesa from Ventas V inner join Usuarios U on V.IdMesero = U.Id inner join Pedidos P on V.IdPedido = P.Id INNER JOIN Mesas M on P.IdMesa = M.Id ORDER BY (Fecha) DESC");
                 dataBase.executeQuery();
                 while (dataBase.Reader.Read())
                 {
