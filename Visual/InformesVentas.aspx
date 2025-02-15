@@ -3,33 +3,31 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <style>
         .margin {
-            margin: 25px;
+            margin: 15px;
         }
         .centrar{
             display:flex;
             justify-content:center;
+            align-items:center;
         }
-        .direction{
-            flex-direction:column;
+        .titulo{
+            padding-top:10px;
         }
     </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MasterSite" runat="server">
     <div class="centrar margin">
-        <asp:Calendar ID="Calendar1" runat="server" BackColor="White"></asp:Calendar>
-        <div class="centrar margin direction">
-            <asp:Button ID="Button1" CssClass="btn btn-warning margin" runat="server" Text="Buscar" />
+        <asp:Calendar ID="Calendar1" runat="server" OnSelectionChanged="Calendar1_SelectionChanged" BackColor="White"></asp:Calendar>
+        <div class="margin">
             <asp:Button ID="Button2" CssClass="btn btn-warning margin" runat="server" Text="Limpiar filtro" />
         </div>
     </div>
     <div class="accordion accordion-flush margin" id="accordionFlushExample">
         <div class="accordion-item">
-            <h2 class="accordion-header">
-                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
-                    Ventas
-                </button>
+            <h2 class="centrar titulo">
+                Ventas
             </h2>
-            <div id="flush-collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+            <div class="accordion-collapse ">
                 <div class="accordion-body">
                     <asp:GridView ID="gdwVentas" CssClass="table table-striped" runat="server" AutoGenerateColumns="false" OnRowCommand="gdwVentas_RowCommand">
                         <Columns>

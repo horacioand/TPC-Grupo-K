@@ -38,16 +38,22 @@ namespace Visual
 
         protected void gdwVentas_RowCommand(object sender, GridViewCommandEventArgs e)
         {
-            
+
         }
 
-        protected void busquedaDia(string fecha )
+        protected void busquedaDia(string fecha)
         {
             //Se busca en el array de todas las ventas 
             List<Venta> result = list.FindAll(a => a.Fecha.Date.ToString("yyyy-MM-dd") == fecha);
             gdwVentas.DataSource= result;
             gdwVentas.DataBind();
             return;
+        }
+
+        protected void Calendar1_SelectionChanged(object sender, EventArgs e)
+        {
+            DateTime dateSelect = Calendar1.SelectedDate;
+            busquedaDia(dateSelect.ToString("yyyy-MM-dd"));
         }
     }
 }
