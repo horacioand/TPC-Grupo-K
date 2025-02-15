@@ -59,14 +59,14 @@
                 <div class="contador">
                     <asp:Label ID="lblNumeroMesa" CssClass="form-label" runat="server" Text="Cantidad de personas:"></asp:Label>
                     <div>
-                        <asp:Button ID="btnMenos" CssClass="btn btn-warning" runat="server" Text="-" />
-                        <asp:Label ID="Label2" runat="server" Text="1"></asp:Label>
-                        <asp:Button ID="btnMas" CssClass="btn btn-warning" runat="server" Text="+" />
+                        <asp:Button ID="btnMenos" onclick="btnMenos_Click" CssClass="btn btn-warning" runat="server" Text="-" />
+                        <asp:Label ID="lblNumeroPersonas" runat="server" Text="1"></asp:Label>
+                        <asp:Button ID="btnMas" OnClick="btnMas_Click" CssClass="btn btn-warning" runat="server" Text="+" />
                     </div>
                 </div>
                 <div>
-                    <asp:Button ID="btnAgregar" CssClass="btn btn-warning margen" runat="server" Text="Abrir" />
-                    <asp:Button ID="Button1" CssClass="btn btn-warning margen" OnClick="btnCancelar_Click" runat="server" Text="Cancelar" />
+                    <asp:Button ID="btnAbrirMesa" OnClick="btnAbrirMesa_Click" CssClass="btn btn-warning margen" runat="server" Text="Abrir" />
+                    <asp:Button ID="btnCancelarAbrir" CssClass="btn btn-warning margen" OnClick="btnCancelarAbrir_Click" runat="server" Text="Cancelar" />
                 </div>
             </div>
         </div>

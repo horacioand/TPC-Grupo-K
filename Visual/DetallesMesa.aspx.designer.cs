@@ -69,13 +69,13 @@ namespace Visual
         protected global::System.Web.UI.WebControls.Button btnMenos;
 
         /// <summary>
-        /// Control Label2.
+        /// Control lblNumeroPersonas.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label2;
+        protected global::System.Web.UI.WebControls.Label lblNumeroPersonas;
 
         /// <summary>
         /// Control btnMas.
@@ -87,22 +87,22 @@ namespace Visual
         protected global::System.Web.UI.WebControls.Button btnMas;
 
         /// <summary>
-        /// Control btnAgregar.
+        /// Control btnAbrirMesa.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnAgregar;
+        protected global::System.Web.UI.WebControls.Button btnAbrirMesa;
 
         /// <summary>
-        /// Control Button1.
+        /// Control btnCancelarAbrir.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Button1;
+        protected global::System.Web.UI.WebControls.Button btnCancelarAbrir;
 
         /// <summary>
         /// Control alert.

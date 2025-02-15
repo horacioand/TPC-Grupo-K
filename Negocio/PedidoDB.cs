@@ -39,13 +39,13 @@ namespace Negocio
             }
         }     
 
-        public int crearPedido(int idMesa)
+        public int crearPedido(int idMesa, int nmrPersonas)
         {
             DataBase dataBase = new DataBase();
             int idPedido = 0;
             try
             {
-                dataBase.setQuery("Insert into Pedidos (Fecha, Estado, Total, IdMesa, nroClientes) values (GetDate(), 1, 0, " + idMesa + ", 0) Select Max(Id) from Pedidos");
+                dataBase.setQuery("Insert into Pedidos (Fecha, Estado, Total, IdMesa, nroClientes) values (GetDate(), 1, 0, " + idMesa + ", " + nmrPersonas +") Select Max(Id) from Pedidos");
                 dataBase.executeQuery();
                 if (dataBase.Reader.Read())
                 {
