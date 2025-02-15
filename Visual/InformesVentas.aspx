@@ -5,13 +5,15 @@
         .margin {
             margin: 15px;
         }
-        .centrar{
-            display:flex;
-            justify-content:center;
-            align-items:center;
+
+        .centrar {
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
-        .titulo{
-            padding-top:10px;
+
+        .titulo {
+            padding-top: 10px;
         }
     </style>
 </asp:Content>
@@ -24,8 +26,7 @@
     </div>
     <div class="accordion accordion-flush margin" id="accordionFlushExample">
         <div class="accordion-item">
-            <h2 class="centrar titulo">
-                Ventas
+            <h2 class="centrar titulo">Ventas
             </h2>
             <div class="accordion-collapse ">
                 <div class="accordion-body">
@@ -42,6 +43,9 @@
                             <asp:ButtonField Text="🔍" CommandName="Ver" />
                         </Columns>
                     </asp:GridView>
+                    <div id="info" visible="false" class="alert alert-danger contenedor" role="alert" runat="server">
+                        Sin ventas...
+                    </div>
                 </div>
             </div>
         </div>

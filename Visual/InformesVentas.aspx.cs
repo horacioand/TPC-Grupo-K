@@ -47,6 +47,13 @@ namespace Visual
             List<Venta> result = list.FindAll(a => a.Fecha.Date.ToString("yyyy-MM-dd") == fecha);
             gdwVentas.DataSource= result;
             gdwVentas.DataBind();
+            if (result.Count == 0)
+            {
+                info.Visible = true;
+            }else
+            {
+                info.Visible = false;   
+            }
             return;
         }
 
