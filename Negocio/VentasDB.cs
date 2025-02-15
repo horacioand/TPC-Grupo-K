@@ -15,7 +15,7 @@ namespace Negocio
             DataBase dataBase = new DataBase();
             try
             {
-                dataBase.setQuery("Insert into Ventas (IdMesero, IdPedido, TotalCuenta, PlatillosConsumidos) values (" + venta.IdMesero + ", " + venta.IdPedido + ", " + venta.TotalCuenta + ", " + venta.PlatillosConsumidos + ")");
+                dataBase.setQuery("Insert into Ventas (IdMesero, IdPedido, TotalCuenta, PlatillosConsumidos) values (" + venta.Mesero.Id + ", " + venta.IdPedido + ", " + venta.TotalCuenta + ", " + venta.PlatillosConsumidos + ")");
                 dataBase.executeNonQuery();
             }
             catch (Exception ex)
@@ -35,18 +35,25 @@ namespace Negocio
             DataBase dataBase = new DataBase();
             try
             {
-                dataBase.setQuery("Select Id, IdMesero, IdPedido, Fecha, TotalCuenta, PlatillosConsumidos from Ventas where  CONVERT(DATE, Fecha) = '" + date.Date.ToString("yyyy-MM-dd") + "'");
+                dataBase.setQuery("Select V.Id, V.IdMesero, U.Nombre Mesero, V.IdPedido, V.TotalCuenta Total, V.PlatillosConsumidos Platillos, P.nroClientes Personas, M.Numero Mesa from Ventas V inner join Usuarios U on V.IdMesero = U.Id inner join Pedidos P on V.IdPedido = P.Id INNER JOIN Mesas M on P.IdMesa = M.Id where CONVERT(DATE, V.Fecha) = '" + date.Date.ToString("yyyy-MM-dd") + "'");
                 dataBase.executeQuery();
                 while (dataBase.Reader.Read())
                 {
                     Venta venta = new Venta()
                     {
                         Id = (int)dataBase.Reader["Id"],
-                        IdMesero = (int)dataBase.Reader["IdMesero"],
                         IdPedido = (int)dataBase.Reader["IdPedido"],
-                        TotalCuenta = (decimal)dataBase.Reader["TotalCuenta"],
-                        PlatillosConsumidos = (int)dataBase.Reader["PlatillosConsumidos"]
+                        TotalCuenta = (decimal)dataBase.Reader["Total"],
+                        PlatillosConsumidos = (int)dataBase.Reader["Platillos"],
+                        Personas = (int)dataBase.Reader["Personas"],
+                        NumMesa = (int)dataBase.Reader["Mesa"]
                     };
+                    Usuario usuario = new Usuario()
+                    {
+                        Id = (int)dataBase.Reader["IdMesero"],
+                        Nombre = (string)dataBase.Reader["Mesero"]
+                    };
+                    venta.Mesero = usuario;
                     list.Add(venta);
                 }
                 return list;

@@ -15,7 +15,8 @@ namespace Visual
         {
             ValidarRol();
             VentasDB ventasDB = new VentasDB();
-            List<Venta> list = ventasDB.listarVentas(DateTime.Now);
+            gdwVentas.DataSource = ventasDB.listarVentas(DateTime.Now);
+            gdwVentas.DataBind();
         }
 
         public bool ValidarRol()
@@ -32,6 +33,9 @@ namespace Visual
             return validacion;
         }
 
+        protected void gdwVentas_RowCommand(object sender, GridViewCommandEventArgs e)
+        {
 
+        }
     }
 }

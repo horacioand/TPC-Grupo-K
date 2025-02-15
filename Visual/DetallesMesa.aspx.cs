@@ -134,12 +134,12 @@ namespace Visual
                 VentasDB Ventas = new VentasDB();
                 Venta venta = new Venta()
                 {
-                    IdMesero = usuario.Id,
                     IdPedido = mesaSeleccionada.IdPedido,
                     TotalCuenta = sumarTotal(mesaSeleccionada.Pedidos),
                     PlatillosConsumidos = contarProductos(mesaSeleccionada.Pedidos)
 
                 };
+                venta.Mesero = usuario;
                 Ventas.crearVenta(venta);
                 Response.Redirect("Default.aspx");
                 //Aqui se podria agregar el tema de imprimir el ticket...
