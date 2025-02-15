@@ -48,9 +48,18 @@ namespace Visual
                 string idPedido = row.Cells[4].Text;
                 PedidoDB PedidoDB = new PedidoDB();
                 List<ItemPedido> items = PedidoDB.listarItems(int.Parse(idPedido));
-                dgvItems.DataSource = items;
-                dgvItems.DataBind();
-                dgvItems.Visible = true;
+                if (items.Count == 0)
+                {
+                    infoItems.Visible = true;
+                    dgvItems.Visible = false;
+                }
+                else
+                {
+                    infoItems.Visible=false;
+                    dgvItems.DataSource = items;
+                    dgvItems.DataBind();
+                    dgvItems.Visible = true;
+                }
             }
         }
 
@@ -84,6 +93,7 @@ namespace Visual
             gdwVentas.DataSource = list;
             gdwVentas.DataBind();
             info.Visible = false;
+            infoItems.Visible = false;
         }
     }
 }

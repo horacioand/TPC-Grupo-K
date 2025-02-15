@@ -11,9 +11,11 @@
             justify-content: center;
             align-items: center;
         }
-        .direction{
+
+        .direction {
             flex-direction: column;
         }
+
         .titulo {
             padding-top: 10px;
         }
@@ -30,6 +32,9 @@
                     <asp:BoundField DataField="Producto.Precio" HeaderText="Precio" />
                 </Columns>
             </asp:GridView>
+            <div id="infoItems" visible="false" class="alert alert-danger contenedor margin" role="alert" runat="server">
+                Sin productos...
+            </div>
         </div>
         <div class="margin">
             <asp:Button ID="btnLimpiar" CssClass="btn btn-warning margin" runat="server" Text="Limpiar filtro" OnClick="btnLimpiar_Click" />
