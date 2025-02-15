@@ -13,8 +13,6 @@ namespace Dominio
         public decimal Precio { get; set; }
         public int Stock { get; set; }
         public string Imagen { get; set; }
-
-        // Relación
-        //public ICollection<ItemPedido> ItemsPedido { get; set; }
+        public int IdCategoria { get; set; } //1 Bebidas 2 Comidas 3 Postres
     }
 }

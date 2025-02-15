@@ -18,25 +18,39 @@
             flex-direction: column;
             align-items: center;
         }
+
+        .titulo {
+            display: flex;
+            justify-content: center;
+            margin-top: 10px;
+        }
     </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MasterSite" runat="server">
     <div class="divCentrar">
         <div class="row mt-5 justify-content-md-center">
-            <div class="accordion col-8" id="accordionPanelsStayOpenExample">
+            <div class="accordion" id="accordionPanelsStayOpenExample">
                 <div class="accordion-item">
-                    <h2 class="accordion-header">
-                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
-                            Menu
-                        </button>
+                    <h2 class="titulo">Menu
                     </h2>
-                    <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show">
-                        <div class="accordion-body" id="carta" runat="server">
-                            <!-- Aqui iran los alimentos de la carta, la idea es generar los botones dinamicamente en base a la lectura de la db -->
+                    <div class="accordion-collapse collapse show">
+                        <div class="accordion-body" id="Bebidas" runat="server">
+                            <h4>Bebidas</h4>
+                            <!-- Aqui se generan las bebidas -->
+                        </div>
+                        <div class="accordion-body" id="Comidas" runat="server">
+                            <h4>Comidas</h4>
+                            <!-- Aqui se generan las comidas -->
+                        </div>
+                        <div class="accordion-body" id="Postres" runat="server">
+                            <h4>Postres</h4>
+                            <!-- Aqui se generan los postres -->
                         </div>
                     </div>
                 </div>
             </div>
+
+            <!-- Seccion de agregar productos -->
         </div>
         <div runat="server" id="CantidadProductos" class="cantidadProductos">
             <asp:Label ID="Label1" runat="server" CssClass="h5 margen" Text="Cantidad"></asp:Label>
@@ -56,7 +70,7 @@
         <div>
             <asp:Button ID="btnRegresar" CssClass="btn btn-warning margen" runat="server" OnClick="btnRegresar_Click" Visible="false" Text="Regresar" />
         </div>
-        <div Id="alert" class="alert alert-success margen" role="alert" runat="server">
+        <div id="alert" class="alert alert-success margen" role="alert" runat="server">
             ¡Agregado correctamente!
         </div>
     </div>

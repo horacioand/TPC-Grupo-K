@@ -31,7 +31,8 @@ namespace Visual
 
         protected void cargarMenu()
         {
-            foreach (var item in productos)
+            List<Producto> listBebidas = productos.FindAll(e => e.IdCategoria == 1);
+            foreach (var item in listBebidas)
             {
                 Button btn = new Button
                 {
@@ -44,7 +45,39 @@ namespace Visual
                     btn.Click += (sender, e) => Btn_click(sender, e, item.Id);
                     btnRegresar.Visible = true;
                 }
-                carta.Controls.Add(btn);
+                Bebidas.Controls.Add(btn);
+            }
+            List<Producto> listComidas = productos.FindAll(e => e.IdCategoria == 2);
+            foreach (var item in listComidas)
+            {
+                Button btn = new Button
+                {
+                    Text = item.Nombre,
+                    ID = "btn" + item.Id.ToString(),
+                    CssClass = "btn btn-warning margen"
+                };
+                if (Request.QueryString["idPedido"] != null)
+                {
+                    btn.Click += (sender, e) => Btn_click(sender, e, item.Id);
+                    btnRegresar.Visible = true;
+                }
+                Comidas.Controls.Add(btn);
+            }
+            List<Producto> listPostres = productos.FindAll(e => e.IdCategoria == 3);
+            foreach (var item in listPostres)
+            {
+                Button btn = new Button
+                {
+                    Text = item.Nombre,
+                    ID = "btn" + item.Id.ToString(),
+                    CssClass = "btn btn-warning margen"
+                };
+                if (Request.QueryString["idPedido"] != null)
+                {
+                    btn.Click += (sender, e) => Btn_click(sender, e, item.Id);
+                    btnRegresar.Visible = true;
+                }
+                Postres.Controls.Add(btn);
             }
         }
 

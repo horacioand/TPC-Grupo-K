@@ -15,7 +15,7 @@ namespace Negocio
             DataBase db = new DataBase();
             try
             {
-                db.setQuery("select Id, Nombre, Precio, UrlImagen from Productos");
+                db.setQuery("select Id, Nombre, Precio, UrlImagen, IdCategoria from Productos where Activo = 1");
                 db.executeQuery();
                 while (db.Reader.Read())
                 {
@@ -23,7 +23,8 @@ namespace Negocio
                     aux.Id = (int)db.Reader["Id"];
                     aux.Nombre = (string)db.Reader["Nombre"];
                     aux.Precio = (decimal)db.Reader["Precio"];
-                    aux.Imagen = (string)db.Reader["UrlImagen"];   
+                    aux.Imagen = (string)db.Reader["UrlImagen"];
+                    aux.IdCategoria = (int)db.Reader["IdCategoria"];
                     list.Add(aux);
                 }
                 return list;
@@ -34,6 +35,5 @@ namespace Negocio
                 throw ex;
             }
         }
-
     }
 }

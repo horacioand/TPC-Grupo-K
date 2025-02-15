@@ -15,13 +15,31 @@ namespace Visual
     {
 
         /// <summary>
-        /// Control carta.
+        /// Control Bebidas.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl carta;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl Bebidas;
+
+        /// <summary>
+        /// Control Comidas.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl Comidas;
+
+        /// <summary>
+        /// Control Postres.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl Postres;
 
         /// <summary>
         /// Control CantidadProductos.
