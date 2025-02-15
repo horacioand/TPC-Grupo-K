@@ -131,6 +131,16 @@ namespace Visual
                 pedidoDB.cerrarPedido(mesaSeleccionada.Id, sumarTotal(mesaSeleccionada.Pedidos));
                 MesaDB mesa = new MesaDB();
                 mesa.cerrarMesa(mesaSeleccionada.Id);
+                VentasDB Ventas = new VentasDB();
+                Venta venta = new Venta()
+                {
+                    IdMesero = usuario.Id,
+                    IdPedido = mesaSeleccionada.IdPedido,
+                    TotalCuenta = sumarTotal(mesaSeleccionada.Pedidos),
+                    PlatillosConsumidos = contarProductos(mesaSeleccionada.Pedidos)
+
+                };
+                Ventas.crearVenta(venta);
                 Response.Redirect("Default.aspx");
                 //Aqui se podria agregar el tema de imprimir el ticket...
             }
@@ -222,7 +232,5 @@ namespace Visual
             listaMesa[indexMesa] = mesaSeleccionada;
             Session["ListaMesas"] = listaMesa;
         }
-
-
     }
 }
