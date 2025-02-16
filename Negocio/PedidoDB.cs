@@ -104,7 +104,9 @@ namespace Negocio
             DataBase dataBase = new DataBase();
             try
             {
-                dataBase.setQuery("Update Pedidos set Estado = 0, Total = " + total + " where IdMesa = " + idPedido);
+                dataBase.setQuery("UPDATE Pedidos SET Estado = 0, Total = @total WHERE IdMesa = @idPedido");
+                dataBase.setParameter("@total", total);
+                dataBase.setParameter("@idPedido", idPedido);
                 dataBase.executeNonQuery();
             }
             catch (Exception ex)
