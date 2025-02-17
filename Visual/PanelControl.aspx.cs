@@ -48,7 +48,7 @@ namespace Visual
 
         protected void btnAMBPlato_Click(object sender, EventArgs e)
         {
-            Response.Redirect("ABMPlatos.aspx");
+            Response.Redirect("ABMProductos.aspx");
         }
     }
 }
