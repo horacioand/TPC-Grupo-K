@@ -64,6 +64,7 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="ABMMeseros.aspx" />
     <Content Include="AsignacionMesas.aspx" />
     <Content Include="Carta.aspx" />
     <Content Include="CartaPublico.aspx" />
@@ -99,6 +100,13 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ABMMeseros.aspx.cs">
+      <DependentUpon>ABMMeseros.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ABMMeseros.aspx.designer.cs">
+      <DependentUpon>ABMMeseros.aspx</DependentUpon>
+    </Compile>
     <Compile Include="AsignacionMesas.aspx.cs">
       <DependentUpon>AsignacionMesas.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

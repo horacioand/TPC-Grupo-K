@@ -40,5 +40,15 @@ namespace Visual
         {
             Response.Redirect("InformesVentas.aspx");
         }
+
+        protected void btnAMBMesero_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("ABMMeseros.aspx");
+        }
+
+        protected void btnAMBPlato_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("ABMPlatos.aspx");
+        }
     }
 }
