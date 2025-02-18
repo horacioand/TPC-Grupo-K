@@ -16,13 +16,15 @@ namespace Visual
             if (!IsPostBack)
             {
                 ProductosDB productosDB = new ProductosDB();
+                CategoriaDB categoriaDB = new CategoriaDB();
+                ddlCategorias.DataSource = categoriaDB.listar(); ;
+                ddlCategorias.DataValueField = "Id";
+                ddlCategorias.DataTextField = "Descripcion";
+                ddlCategorias.DataBind();
+
                 dgvProductos.DataSource = productosDB.listarProductos();
                 dgvProductos.DataBind();
 
-                //agregar ejemplos dropdown
-                ddlCategorias.Items.Add("Bebidas");
-                ddlCategorias.Items.Add("Comidas");
-                ddlCategorias.Items.Add("Postres");
             }
 
         }

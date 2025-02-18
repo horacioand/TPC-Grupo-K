@@ -42,6 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AsignacionMesa.cs" />
+    <Compile Include="Categoria.cs" />
     <Compile Include="ItemPedido.cs" />
     <Compile Include="Mesa.cs" />
     <Compile Include="Pedido.cs" />
