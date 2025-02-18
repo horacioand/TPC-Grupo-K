@@ -60,13 +60,22 @@ namespace Visual
         protected global::System.Web.UI.WebControls.TextBox txtContrasenaMesero;
 
         /// <summary>
-        /// ddlRolMesero control.
+        /// chkGerente control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlRolMesero;
+        protected global::System.Web.UI.WebControls.CheckBox chkGerente;
+
+        /// <summary>
+        /// lblErrorModificarUsuario control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl lblErrorModificarUsuario;
 
         /// <summary>
         /// btnEliminarMesero control.
@@ -105,31 +114,31 @@ namespace Visual
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl divAgregarMesero;
 
         /// <summary>
-        /// txtNombre control.
+        /// txtNombreNuevoMesero control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtNombre;
+        protected global::System.Web.UI.WebControls.TextBox txtNombreNuevoMesero;
 
         /// <summary>
-        /// txtUsuario control.
+        /// txtUsuarioNuevoMesero control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtUsuario;
+        protected global::System.Web.UI.WebControls.TextBox txtUsuarioNuevoMesero;
 
         /// <summary>
-        /// txtContrasena control.
+        /// txtContrasenaNuevoMesero control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtContrasena;
+        protected global::System.Web.UI.WebControls.TextBox txtContrasenaNuevoMesero;
 
         /// <summary>
         /// ddlRol control.
@@ -139,6 +148,15 @@ namespace Visual
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlRol;
+
+        /// <summary>
+        /// lblErrorAgregarUsuario control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl lblErrorAgregarUsuario;
 
         /// <summary>
         /// btnCancelarUsuario control.
