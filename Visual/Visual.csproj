@@ -88,6 +88,7 @@
     <Content Include="Default.aspx" />
     <Content Include="DetallesMesa.aspx" />
     <Content Include="estilos.css" />
+    <Content Include="FormProducto.aspx" />
     <Content Include="Global.asax" />
     <Content Include="InformesVentas.aspx" />
     <Content Include="Login.aspx" />
@@ -149,6 +150,13 @@
     </Compile>
     <Compile Include="DetallesMesa.aspx.designer.cs">
       <DependentUpon>DetallesMesa.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="FormProducto.aspx.cs">
+      <DependentUpon>FormProducto.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="FormProducto.aspx.designer.cs">
+      <DependentUpon>FormProducto.aspx</DependentUpon>
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>

@@ -26,5 +26,22 @@ namespace Visual
             }
 
         }
+
+        protected void dgvProductos_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        {
+            dgvProductos.PageIndex = e.NewPageIndex;
+            dgvProductos.DataBind();
+        }
+
+        protected void dgvProductos_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string id = dgvProductos.SelectedDataKey.Value.ToString();
+            Response.Redirect("FormProducto.aspx?id=" + id);
+        }
+
+        protected void btnAgregarProducto_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("FormProducto.aspx");
+        }
     }
 }
