@@ -83,6 +83,7 @@ namespace Visual
 
         protected void Calendar1_SelectionChanged(object sender, EventArgs e)
         {
+            infoItems.Visible = false;
             DateTime dateSelect = Calendar1.SelectedDate;
             busquedaDia(dateSelect.ToString("yyyy-MM-dd"));
         }
