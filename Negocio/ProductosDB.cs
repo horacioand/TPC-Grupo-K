@@ -35,5 +35,25 @@ namespace Negocio
                 throw ex;
             }
         }
+        public void crearProducto(Producto producto)
+        {
+            DataBase dataBase = new DataBase();
+            try
+            {
+                dataBase.setQuery("INSERT INTO Productos (Nombre, Precio, UrlImagen, IdCategoria, Activo) VALUES (@nombre, @precio, @imagen, @categoria,1)");
+                dataBase.setParameter("@nombre", producto.Nombre);
+                dataBase.setParameter("@precio", producto.Precio);
+                dataBase.setParameter("@imagen", producto.Imagen);
+                dataBase.setParameter("@categoria", producto.IdCategoria);
+                dataBase.executeNonQuery();
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
+
+        //falta codigo eliminar producto (logico)
     }
 }
