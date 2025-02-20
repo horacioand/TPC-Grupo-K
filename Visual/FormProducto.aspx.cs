@@ -10,10 +10,11 @@ namespace Visual
 {
     public partial class FormProducto : System.Web.UI.Page
     {
+        public Producto productoSeleccionado;
         protected void Page_Load(object sender, EventArgs e)
         {
             CategoriaDB categoriaDB = new CategoriaDB();
-            Producto productoSeleccionado;
+            //Producto productoSeleccionado;
             if (!IsPostBack)
             {
                 ddlCategoria.DataSource = categoriaDB.listar();
@@ -66,6 +67,12 @@ namespace Visual
             }
             
             
+        }
+        protected void btnEliminarProducto_Click(object sender, EventArgs e)
+        {
+            ProductosDB productoDB = new ProductosDB();
+            productoDB.eliminarLogico(productoSeleccionado);
+            Response.Redirect("PanelControl.aspx");
         }
     }
 }

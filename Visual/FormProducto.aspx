@@ -26,7 +26,7 @@
                     <asp:DropDownList ID="ddlCategoria" runat="server" CssClass="btn btn-warning dropdown w-100"></asp:DropDownList>
                 </div>
                 <div class="mb-3 d-flex flex-column justify-content-center">
-                    <asp:Button CssClass="btn btn-danger mb-2" id="btnEliminarProducto" runat="server" visible="false" Text="Eliminar" />
+                    <asp:Button CssClass="btn btn-danger mb-2" id="btnEliminarProducto" runat="server" visible="false" Text="Eliminar"  OnClick="btnEliminarProducto_Click"/>
                     <asp:Button CssClass="btn btn-warning" id="btnEnviarProducto" runat="server" Text="Crear" OnClick="btnEnviarProducto_Click"/>
                 </div>
         </div>

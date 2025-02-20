@@ -30,20 +30,20 @@
     <div class="divCentrar">
         <div class="row mt-5 justify-content-md-center">
             <div class="accordion" id="accordionPanelsStayOpenExample">
-                <div class="accordion-item">
-                    <h2 class="titulo">Menu
+                <div class="accordion-item bg-dark border-dark">
+                    <h2 class="titulo text-warning">Menu
                     </h2>
                     <div class="accordion-collapse collapse show">
                         <div class="accordion-body" id="Bebidas" runat="server">
-                            <h4>Bebidas</h4>
+                            <h4 class="text-warning">Bebidas</h4>
                             <!-- Aqui se generan las bebidas -->
                         </div>
                         <div class="accordion-body" id="Comidas" runat="server">
-                            <h4>Comidas</h4>
+                            <h4 class="text-warning">Comidas</h4>
                             <!-- Aqui se generan las comidas -->
                         </div>
                         <div class="accordion-body" id="Postres" runat="server">
-                            <h4>Postres</h4>
+                            <h4 class="text-warning">Postres</h4>
                             <!-- Aqui se generan los postres -->
                         </div>
                     </div>

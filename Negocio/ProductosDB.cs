@@ -54,6 +54,23 @@ namespace Negocio
             }
         }
 
-        //falta codigo eliminar producto (logico)
+        public void eliminarLogico(Producto producto)
+        {
+            DataBase dataBase = new DataBase();
+            try
+            {
+                dataBase.setQuery("UPDATE Productos SET Activo = 0 WHERE Id = " + producto.Id + "");
+                dataBase.executeNonQuery();
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                dataBase.closeConn();
+            }
+        }
     }
 }

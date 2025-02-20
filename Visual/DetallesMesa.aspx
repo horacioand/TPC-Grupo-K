@@ -43,7 +43,7 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MasterSite" runat="server">
     <div class="contenedor margen">
-        <asp:GridView runat="server" ID="dgvPedidos" CssClass="table table-striped" AutoGenerateColumns="False" OnRowCommand="dgvPedidos_RowCommand">
+        <asp:GridView runat="server" ID="dgvPedidos" CssClass="table table-striped table-dark" AutoGenerateColumns="False" OnRowCommand="dgvPedidos_RowCommand">
             <Columns>
                 <asp:BoundField DataField="Id" HeaderText="Id" HeaderStyle-CssClass="visually-hidden" ItemStyle-CssClass="visually-hidden" />
                 <asp:BoundField DataField="Producto.Nombre" HeaderText="Nombre" />
