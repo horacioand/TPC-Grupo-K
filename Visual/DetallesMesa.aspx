@@ -65,8 +65,8 @@
                     </div>
                 </div>
                 <div>
-                    <asp:Button ID="btnAbrirMesa" OnClick="btnAbrirMesa_Click" CssClass="btn btn-warning margen" runat="server" Text="Abrir" />
-                    <asp:Button ID="btnCancelarAbrir" CssClass="btn btn-warning margen" OnClick="btnCancelarAbrir_Click" runat="server" Text="Cancelar" />
+                    <asp:Button ID="btnAbrirMesa" OnClick="btnAbrirMesa_Click" CssClass="btn btn-success margen" runat="server" Text="Abrir" />
+                    <asp:Button ID="btnCancelarAbrir" CssClass="btn btn-danger margen" OnClick="btnCancelarAbrir_Click" runat="server" Text="Cancelar" />
                 </div>
             </div>
         </div>
@@ -78,11 +78,11 @@
         <asp:Label ID="lblCantidad" runat="server" Text="Cantidad productos: "></asp:Label>
         <asp:Label ID="lblTotal" runat="server" Text="Total: "></asp:Label>
     </div>
-    <div class="d-grid gap-2 col-6 mx-auto">
-        <asp:Button ID="btnAgregarPedido" CssClass="btn btn-warning m-2" Text="Agregar" runat="server" OnClick="btnAgregarPedido_Click" />
+    <div class="d-grid gap-2 col-2 mx-auto">
+        <asp:Button ID="btnAgregarPedido" CssClass="btn btn-success m-2" Text="Agregar" runat="server" OnClick="btnAgregarPedido_Click" />
     </div>
-    <div id="CerrarMesa" class="d-grid gap-2 col-6 mx-auto" runat="server">
-        <asp:Button ID="btnCerrarMesa" OnClick="btnCerrarMesa_Click" CssClass="btn btn-warning m-2" runat="server" Text="Cerrar mesa" />
+    <div id="CerrarMesa" class="d-grid gap-2 col-2 mx-auto" runat="server">
+        <asp:Button ID="btnCerrarMesa" OnClick="btnCerrarMesa_Click" CssClass="btn btn-danger m-2" runat="server" Text="Cerrar mesa" />
         <div id="Confirmar" class="Confirmar" runat="server" visible="false">
             <asp:Label ID="lblProducto" runat="server" Text=""></asp:Label>
             <asp:Label ID="lblConfirmar" runat="server" Text=""></asp:Label>

@@ -40,6 +40,7 @@ namespace Visual
             //Boton muestra div para agregar mesero
             divAgregarMesero.Visible = true;
             btnMostrarNuevoMesero.Visible = false;
+            divModificarMesero.Visible = false;
         }
 
         protected void btnCancelarUsuario_Click(object sender, EventArgs e)
@@ -47,6 +48,7 @@ namespace Visual
             //Boton oculta div agregar mesero
             divAgregarMesero.Visible = false;
             btnMostrarNuevoMesero.Visible = true;
+            divModificarMesero.Visible = true;
         }
 
         protected void btnCrearUsuario_Click(object sender, EventArgs e)

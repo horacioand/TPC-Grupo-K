@@ -29,7 +29,7 @@
                     </p>
                     <%if (mesa.Estado)
                         {%>
-                    <a href="DetallesMesa.aspx?id=<%:mesa.Id %>" class="btn btn-warning">Ver detalles </a>
+                    <a href="DetallesMesa.aspx?id=<%:mesa.Id %>" class="btn btn-success">Ver detalles </a>
                     <%}
                         else
                         {%>
@@ -40,7 +40,7 @@
         </div>
         <% } %>
     </div>
-    <div class="d-grid gap-2 col-6 mx-auto">
-        <asp:Button ID="btnCerrarSesion" CssClass="btn btn-warning m-2" Text="Cerrar sesion" runat="server" OnClick="btnCerrarSesion_Click" />
+    <div class="d-grid gap-2 col-2 mx-auto">
+        <asp:Button ID="btnCerrarSesion" CssClass="btn btn-danger m-2" Text="Cerrar sesion" runat="server" OnClick="btnCerrarSesion_Click" />
     </div>
 </asp:Content>

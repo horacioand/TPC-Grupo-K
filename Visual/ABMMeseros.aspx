@@ -9,7 +9,7 @@
         <div class="col-2"></div>
 
         <!--Columna para modificar mesero-->
-        <div class="col-3 bg-dark rounded-3" id="div1" runat="server">
+        <div class="col-3 bg-dark rounded-3" id="divModificarMesero" runat="server">
             <div class="mb-1 d-flex justify-content-center">
                 <h5 class="text-warning mt-2">Modificar Mesero</h5>
             </div>
@@ -45,7 +45,7 @@
             <label id="lblErrorModificarUsuario" runat="server" visible="false" class=" text-danger">Complete todos los campos</label>
                 <div class="mb-3 d-flex justify-content-center">
                     <asp:Button ID="btnEliminarMesero" runat="server" class="form-control" Text="Eliminar" CssClass="btn btn-danger m-1" OnClick="btnEliminarMesero_Click"></asp:Button>
-                    <asp:Button ID="btnModificarMesero" runat="server" class="form-control" Text="Modificar" CssClass="btn btn-warning m-1" OnClick="btnModificarMesero_Click"></asp:Button>
+                    <asp:Button ID="btnModificarMesero" runat="server" class="form-control" Text="Modificar" CssClass="btn btn-success m-1" OnClick="btnModificarMesero_Click"></asp:Button>
                 </div>
             </div>
 
@@ -82,7 +82,7 @@
                 <label id="lblErrorAgregarUsuario" runat="server" visible="false" class=" text-danger">Complete todos los campos</label>
                 <div class="mb-3 d-flex justify-content-center">
                     <asp:Button ID="btnCancelarUsuario" runat="server" class="form-control" Text="Cancelar" CssClass="btn btn-secondary m-1" OnClick="btnCancelarUsuario_Click"></asp:Button>
-                    <asp:Button ID="btnCrearUsuario" runat="server" class="form-control" Text="Crear" CssClass="btn btn-warning m-1" OnClick="btnCrearUsuario_Click"></asp:Button>
+                    <asp:Button ID="btnCrearUsuario" runat="server" class="form-control" Text="Crear" CssClass="btn btn-success m-1" OnClick="btnCrearUsuario_Click"></asp:Button>
                 </div>
             </div>
 
