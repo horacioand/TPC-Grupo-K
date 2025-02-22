@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Data.SqlClient;
+using System.Configuration;
 namespace Negocio
 {
     public class DataBase
@@ -14,7 +15,8 @@ namespace Negocio
 
         public DataBase()
         {
-            conn = new SqlConnection("server=.\\SQLEXPRESS ; database=RESTO_DB ; integrated security = true");
+            string connectionString = ConfigurationManager.ConnectionStrings["conexion"].ConnectionString;
+            conn = new SqlConnection(connectionString);
             cmd = new SqlCommand();
         }
         public SqlDataReader Reader { get { return reader; } }
