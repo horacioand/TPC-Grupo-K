@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO.MemoryMappedFiles;
-using System.Linq;
-using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using Dominio;
@@ -10,37 +7,88 @@ using Negocio;
 
 namespace Visual
 {
-    public partial class ABMMeseros : System.Web.UI.Page
+    public partial class ABMMeseros : Page
     {
+        private UsuarioDB usuarioDB = new UsuarioDB(); // Instancia para manejar la base de datos de usuarios
+
         protected void Page_Load(object sender, EventArgs e)
         {
+            // Verifica si hay un usuario en sesión, si no, redirige a la página de login
             if (Session["Usuario"] == null)
             {
                 Response.Redirect("Login.aspx");
             }
 
+            // Solo carga la lista de usuarios la primera vez que se carga la página
             if (!IsPostBack)
             {
-                UsuarioDB usuarios = new UsuarioDB();
-                try
-                {
-                    ddlMeseros.DataSource = usuarios.listarActivo();
-                    ddlMeseros.DataTextField = "Nombre";
-                    ddlMeseros.DataValueField = "Id";
-                    ddlMeseros.DataBind();
-
-                    ddlMeseros.Items.Insert(0, new ListItem("-- Seleccionar usuario --", "0"));
-                }
-                catch (Exception)
-                {
-                    throw;
-                }
+                CargarUsuarios();
             }
+        }
+
+        private void CargarUsuarios()
+        {
+            try
+            {
+                // Obtiene la lista de usuarios activos y la almacena en la sesión
+                List<Usuario> listaUsuarios = usuarioDB.listarActivo();
+                Session["listaUsuarios"] = listaUsuarios;
+
+                // Configura el DropDownList con los usuarios
+                ddlMeseros.DataSource = listaUsuarios;
+                ddlMeseros.DataTextField = "Nombre";
+                ddlMeseros.DataValueField = "Id";
+                ddlMeseros.DataBind();
+
+                ddlMeseros.Items.Insert(0, new ListItem("-- Seleccionar usuario --", "0"));
+            }
+            catch (Exception ex)
+            {
+                lblErrorModificarUsuario.InnerText = "❌ Error al cargar usuarios: " + ex.Message;
+                lblErrorModificarUsuario.Visible = true;
+            }
+        }
+
+        protected void ddlMeseros_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ViewState["UsuarioSeleccionado"] = null;
+
+            // Si no se selecciona ningún usuario, limpia los campos
+            if (ddlMeseros.SelectedValue == "0")
+            {
+                LimpiarCampos();
+                return;
+            }
+
+            // Busca el usuario seleccionado en la lista de sesión
+            List<Usuario> lista = (List<Usuario>)Session["listaUsuarios"];
+            Usuario seleccionado = lista.Find(x => x.Id == int.Parse(ddlMeseros.SelectedValue));
+
+            if (seleccionado != null)
+            {
+                ViewState["RolUsuario"] = seleccionado.Rol ? 1 : 0; // Guarda el rol original en ViewState
+                txtNombreMesero.Text = seleccionado.Nombre;
+                txtUsuarioMesero.Text = seleccionado.UsuarioNombre;
+                txtContrasenaMesero.Text = seleccionado.Contrasena;
+            }
+            else
+            {
+                lblErrorModificarUsuario.InnerText = "❌ Error: No se encontró el usuario seleccionado.";
+                lblErrorModificarUsuario.Visible = true;
+            }
+        }
+
+        private void LimpiarCampos()
+        {
+            txtNombreMesero.Text = "";
+            txtUsuarioMesero.Text = "";
+            txtContrasenaMesero.Text = "";
+            ViewState["RolUsuario"] = null;
         }
 
         protected void btnMostrarNuevoMesero_Click(object sender, EventArgs e)
         {
-            //Boton muestra div para agregar mesero
+            // Muestra el formulario de agregar usuario y oculta el de modificar
             divAgregarMesero.Visible = true;
             btnMostrarNuevoMesero.Visible = false;
             divModificarMesero.Visible = false;
@@ -48,7 +96,7 @@ namespace Visual
 
         protected void btnCancelarUsuario_Click(object sender, EventArgs e)
         {
-            //Boton oculta div agregar mesero
+            // Oculta el formulario de agregar usuario y muestra el de modificar
             divAgregarMesero.Visible = false;
             btnMostrarNuevoMesero.Visible = true;
             divModificarMesero.Visible = true;
@@ -56,17 +104,15 @@ namespace Visual
 
         protected void btnCrearUsuario_Click(object sender, EventArgs e)
         {
-            //Verificar que no haya campos vacios o nulos
-            if (string.IsNullOrWhiteSpace(txtNombreNuevoMesero.Text) || string.IsNullOrWhiteSpace(txtUsuarioNuevoMesero.Text) || string.IsNullOrWhiteSpace(txtContrasenaNuevoMesero.Text))
+            // Verifica que los campos no estén vacíos
+            if (CamposVacios(txtNombreNuevoMesero, txtUsuarioNuevoMesero, txtContrasenaNuevoMesero))
             {
                 lblErrorAgregarUsuario.InnerText = "⚠️ Todos los campos son obligatorios.";
                 lblErrorAgregarUsuario.Visible = true;
                 return;
             }
 
-
-            //Crear nuevo usuario y conexion si pasa la verificacion
-            UsuarioDB usuarioDB = new UsuarioDB();
+            // Crea un nuevo usuario con los datos ingresados
             Usuario usuarioNuevo = new Usuario()
             {
                 Nombre = txtNombreNuevoMesero.Text.Trim(),
@@ -74,8 +120,6 @@ namespace Visual
                 Contrasena = txtContrasenaNuevoMesero.Text.Trim()
             };
 
-
-            //Agregar usuario nuevo a db
             try
             {
                 usuarioDB.agregarUsuario(usuarioNuevo);
@@ -83,63 +127,21 @@ namespace Visual
             }
             catch (Exception ex)
             {
-                lblErrorAgregarUsuario.InnerText = "❌ Error al agregar usuario: " + ex.Message;   //Muestra el error en la label si falla conexion a db
+                lblErrorAgregarUsuario.InnerText = "❌ Error al agregar usuario: " + ex.Message;
                 lblErrorAgregarUsuario.Visible = true;
-            }
-        }
-        protected void ddlMeseros_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            ViewState["UsuarioSeleccionado"] = null;
-
-            // Verificar si se ha seleccionado una opción válida
-            if (ddlMeseros.SelectedValue == "0")
-            {
-                // Limpiar los campos si no se selecciona un usuario válido
-                txtNombreMesero.Text = "";
-                txtUsuarioMesero.Text = "";
-                txtContrasenaMesero.Text = "";
-                ViewState["RolUsuario"] = null;
-                return;
-            }
-
-            List<Usuario> lista = (List<Usuario>)Session["listaUsuarios"];
-
-            // Buscar usuario en la lista
-            Usuario seleccionado = lista.Find(x => x.Id == int.Parse(ddlMeseros.SelectedValue));
-
-            if (seleccionado != null)
-            {
-                ViewState["RolUsuario"] = seleccionado.Rol ? 1 : 0;
-
-                txtNombreMesero.Text = seleccionado.Nombre;
-                txtUsuarioMesero.Text = seleccionado.UsuarioNombre;
-                txtContrasenaMesero.Text = seleccionado.Contrasena;
-            }
-            else
-            {
-                // Manejo de error si no se encuentra el usuario en la lista
-                lblErrorModificarUsuario.InnerText = "❌ Error: No se encontró el usuario seleccionado.";
-                lblErrorModificarUsuario.Visible = true;
             }
         }
 
         protected void btnModificarMesero_Click(object sender, EventArgs e)
         {
-            //Verificar que no haya campos vacios o nulos
-            if (string.IsNullOrWhiteSpace(txtNombreMesero.Text) || string.IsNullOrWhiteSpace(txtUsuarioMesero.Text) || string.IsNullOrWhiteSpace(txtContrasenaMesero.Text))
+            if (ddlMeseros.SelectedValue == "0" || CamposVacios(txtNombreMesero, txtUsuarioMesero, txtContrasenaMesero))
             {
-                lblErrorModificarUsuario.InnerText = "⚠️ Todos los campos son obligatorios.";
+                lblErrorModificarUsuario.InnerText = "⚠️ Debes completar todos los campos y seleccionar un usuario válido.";
                 lblErrorModificarUsuario.Visible = true;
                 return;
             }
-            if (ddlMeseros.SelectedValue == "0")
-            {
-                lblErrorModificarUsuario.InnerText = "⚠️ Debes seleccionar un usuario válido.";
-                lblErrorModificarUsuario.Visible = true;
-                return;
-            }
-            //Crear nuevo usuario y conexion si pasa la verificacion
-            UsuarioDB usuarioDB = new UsuarioDB();
+
+            // Crea un usuario con los datos ingresados
             Usuario usuarioMod = new Usuario()
             {
                 Id = int.Parse(ddlMeseros.SelectedValue),
@@ -148,7 +150,13 @@ namespace Visual
                 Contrasena = txtContrasenaMesero.Text.Trim()
             };
 
-            //Modificar usuario en db
+            // Si el usuario era gerente, no permitir cambiar su rol
+            int rolOriginal = ViewState["RolUsuario"] != null ? (int)ViewState["RolUsuario"] : -1;
+            if (rolOriginal == 1)
+            {
+                usuarioMod.Rol = true;
+            }
+
             try
             {
                 usuarioDB.modificarUsuario(usuarioMod);
@@ -156,12 +164,11 @@ namespace Visual
             }
             catch (Exception ex)
             {
-                lblErrorModificarUsuario.InnerText = "❌ Error al modificar usuario: " + ex.Message;   //Muestra el error en la label si falla conexion a db
+                lblErrorModificarUsuario.InnerText = "❌ Error al modificar usuario: " + ex.Message;
                 lblErrorModificarUsuario.Visible = true;
             }
         }
 
-        //Eliminar Usuario
         protected void btnEliminarMesero_Click(object sender, EventArgs e)
         {
             if (ddlMeseros.SelectedValue == "0")
@@ -170,13 +177,7 @@ namespace Visual
                 lblErrorModificarUsuario.Visible = true;
                 return;
             }
-            UsuarioDB usuarioDB = new UsuarioDB();
-            Usuario usuarioEliminar = new Usuario()
-            {
-                Id = int.Parse(ddlMeseros.SelectedValue)
-            };
 
-            // Verificar si ViewState["RolUsuario"] tiene un valor antes de usarlo
             int rol = ViewState["RolUsuario"] != null ? (int)ViewState["RolUsuario"] : -1;
 
             if (rol == -1)
@@ -186,7 +187,7 @@ namespace Visual
                 return;
             }
 
-            if (rol == 1) // Si el usuario es gerente, no puede ser eliminado
+            if (rol == 1)
             {
                 lblErrorModificarUsuario.InnerText = "❌ No se puede eliminar un gerente.";
                 lblErrorModificarUsuario.Visible = true;
@@ -195,15 +196,24 @@ namespace Visual
             {
                 try
                 {
-                    usuarioDB.eliminarLogico(usuarioEliminar);
+                    usuarioDB.eliminarLogico(new Usuario { Id = int.Parse(ddlMeseros.SelectedValue) });
                     Response.Redirect("PanelControl.aspx");
                 }
                 catch (Exception ex)
                 {
-                    lblErrorModificarUsuario.InnerText = "❌ Error al modificar usuario: " + ex.Message;
+                    lblErrorModificarUsuario.InnerText = "❌ Error al eliminar usuario: " + ex.Message;
                     lblErrorModificarUsuario.Visible = true;
                 }
             }
+        }
+
+        private bool CamposVacios(params TextBox[] campos)
+        {
+            foreach (var campo in campos)
+            {
+                if (string.IsNullOrWhiteSpace(campo.Text)) return true;
+            }
+            return false;
         }
     }
 }
