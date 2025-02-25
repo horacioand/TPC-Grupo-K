@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO.MemoryMappedFiles;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -27,6 +28,8 @@ namespace Visual
                     ddlMeseros.DataTextField = "Nombre";
                     ddlMeseros.DataValueField = "Id";
                     ddlMeseros.DataBind();
+
+                    ddlMeseros.Items.Insert(0, new ListItem("-- Seleccionar usuario --", "0"));
                 }
                 catch (Exception)
                 {
@@ -84,15 +87,40 @@ namespace Visual
                 lblErrorAgregarUsuario.Visible = true;
             }
         }
-
         protected void ddlMeseros_SelectedIndexChanged(object sender, EventArgs e)
         {
+            ViewState["UsuarioSeleccionado"] = null;
+
+            // Verificar si se ha seleccionado una opción válida
+            if (ddlMeseros.SelectedValue == "0")
+            {
+                // Limpiar los campos si no se selecciona un usuario válido
+                txtNombreMesero.Text = "";
+                txtUsuarioMesero.Text = "";
+                txtContrasenaMesero.Text = "";
+                ViewState["RolUsuario"] = null;
+                return;
+            }
+
             List<Usuario> lista = (List<Usuario>)Session["listaUsuarios"];
+
+            // Buscar usuario en la lista
             Usuario seleccionado = lista.Find(x => x.Id == int.Parse(ddlMeseros.SelectedValue));
-            txtNombreMesero.Text = seleccionado.Nombre;
-            txtUsuarioMesero.Text = seleccionado.UsuarioNombre;
-            txtContrasenaMesero.Text = seleccionado.Contrasena;
-            //chkGerente.Checked = seleccionado.Rol;
+
+            if (seleccionado != null)
+            {
+                ViewState["RolUsuario"] = seleccionado.Rol ? 1 : 0;
+
+                txtNombreMesero.Text = seleccionado.Nombre;
+                txtUsuarioMesero.Text = seleccionado.UsuarioNombre;
+                txtContrasenaMesero.Text = seleccionado.Contrasena;
+            }
+            else
+            {
+                // Manejo de error si no se encuentra el usuario en la lista
+                lblErrorModificarUsuario.InnerText = "❌ Error: No se encontró el usuario seleccionado.";
+                lblErrorModificarUsuario.Visible = true;
+            }
         }
 
         protected void btnModificarMesero_Click(object sender, EventArgs e)
@@ -104,7 +132,12 @@ namespace Visual
                 lblErrorModificarUsuario.Visible = true;
                 return;
             }
-
+            if (ddlMeseros.SelectedValue == "0")
+            {
+                lblErrorModificarUsuario.InnerText = "⚠️ Debes seleccionar un usuario válido.";
+                lblErrorModificarUsuario.Visible = true;
+                return;
+            }
             //Crear nuevo usuario y conexion si pasa la verificacion
             UsuarioDB usuarioDB = new UsuarioDB();
             Usuario usuarioMod = new Usuario()
@@ -128,23 +161,48 @@ namespace Visual
             }
         }
 
+        //Eliminar Usuario
         protected void btnEliminarMesero_Click(object sender, EventArgs e)
         {
+            if (ddlMeseros.SelectedValue == "0")
+            {
+                lblErrorModificarUsuario.InnerText = "⚠️ Debes seleccionar un usuario válido.";
+                lblErrorModificarUsuario.Visible = true;
+                return;
+            }
             UsuarioDB usuarioDB = new UsuarioDB();
             Usuario usuarioEliminar = new Usuario()
             {
-                Id = int.Parse(ddlMeseros.SelectedValue),
+                Id = int.Parse(ddlMeseros.SelectedValue)
             };
-            
-            try
+
+            // Verificar si ViewState["RolUsuario"] tiene un valor antes de usarlo
+            int rol = ViewState["RolUsuario"] != null ? (int)ViewState["RolUsuario"] : -1;
+
+            if (rol == -1)
             {
-                usuarioDB.eliminarLogico(usuarioEliminar);
-                Response.Redirect("PanelControl.aspx");
-            }
-            catch (Exception ex)
-            {
-                lblErrorModificarUsuario.InnerText = "❌ Error al modificar usuario: " + ex.Message;   //Muestra el error en la label si falla conexion a db
+                lblErrorModificarUsuario.InnerText = "❌ Error: No se pudo determinar el rol del usuario.";
                 lblErrorModificarUsuario.Visible = true;
+                return;
+            }
+
+            if (rol == 1) // Si el usuario es gerente, no puede ser eliminado
+            {
+                lblErrorModificarUsuario.InnerText = "❌ No se puede eliminar un gerente.";
+                lblErrorModificarUsuario.Visible = true;
+            }
+            else
+            {
+                try
+                {
+                    usuarioDB.eliminarLogico(usuarioEliminar);
+                    Response.Redirect("PanelControl.aspx");
+                }
+                catch (Exception ex)
+                {
+                    lblErrorModificarUsuario.InnerText = "❌ Error al modificar usuario: " + ex.Message;
+                    lblErrorModificarUsuario.Visible = true;
+                }
             }
         }
     }
