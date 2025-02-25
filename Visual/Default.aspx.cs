@@ -41,10 +41,6 @@ namespace Visual
             }
         }
 
-        protected void btnCerrarSesion_Click(object sender, EventArgs e)
-        {
-            Session["usuario"] = null;
-            Response.Redirect("Login.aspx");
-        }
+        
     }
 }
