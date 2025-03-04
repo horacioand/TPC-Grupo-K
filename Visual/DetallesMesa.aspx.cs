@@ -15,6 +15,11 @@ namespace Visual
         Mesa mesaSeleccionada = new Mesa();
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (Session["Usuario"] == null)
+            {
+                Response.Redirect("Login.aspx");
+            }
+
             alert.Visible = false;
             //Si no viene el id de la mesa redirige al inicio
             if (Request.QueryString["id"] == null)

@@ -12,7 +12,11 @@ namespace Visual
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            // Verifica si hay un usuario en sesión, si no, redirige a la página de login
+            if (Session["Usuario"] == null)
+            {
+                Response.Redirect("Login.aspx");
+            }
             if (!IsPostBack)
             {
                 ProductosDB productosDB = new ProductosDB();

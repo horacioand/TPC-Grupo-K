@@ -13,6 +13,11 @@ namespace Visual
         public Producto productoSeleccionado;
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (Session["Usuario"] == null)
+            {
+                Response.Redirect("Login.aspx");
+            }
+
             CategoriaDB categoriaDB = new CategoriaDB();
             //Producto productoSeleccionado;
             if (!IsPostBack)

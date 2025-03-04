@@ -13,6 +13,7 @@ namespace Visual
         public List<Mesa> ListaMesas { get; set; }
         protected void Page_Load(object sender, EventArgs e)
         {
+
             ValidarRol();
             listarMesas();
             if (!IsPostBack)
