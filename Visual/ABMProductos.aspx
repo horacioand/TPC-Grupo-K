@@ -26,7 +26,7 @@
                 <Columns>
                     <asp:BoundField HeaderText="Nombre" DataField="Nombre" />
                     <asp:BoundField HeaderText="Precio" DataField="Precio" />
-                    <asp:BoundField HeaderText="UrlImagen" DataField="Imagen" />
+                    
                     <asp:BoundField HeaderText="Categoria" DataField="IdCategoria" />
                     <asp:CommandField HeaderText="Editar" ShowSelectButton="true" SelectText="✍️" ControlStyle-CssClass="text-decoration-none" />
                 </Columns>
